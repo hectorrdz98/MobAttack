@@ -1,0 +1,20 @@
+name: HundredDaysBorder
+version: '${project.version}'
+main: dev.sasukector.hundreddaysborder.HundredDaysBorder
+api-version: 1.18
+authors: [ Sasukector ]
+description: This is the core plugin for a 100 days event
+website: https://sasukector.dev
+commands:
+  played:
+    description: Command to see played time of a player
+    usage: /played [playerName]
+  toggleDays:
+    description: Command to toggle days display
+    usage: /toggleDays
+  conter-tps:
+    description: Command to display tps
+    usage: /tps
+  inventory:
+    description: Command to see player inventory
+    usage: /inventory [playerName]
