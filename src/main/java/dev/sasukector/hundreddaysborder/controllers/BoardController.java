@@ -55,6 +55,7 @@ public class BoardController {
             World overworld = ServerUtilities.getWorld("overworld");
             if (overworld != null && !hideDays) {
                 lines.add("Día: §d" + (overworld.getFullTime() / 24000));
+                lines.add("Borde: §d" + String.format("%.0f", (overworld.getWorldBorder().getSize())));
             }
 
             double hours = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20.0/ 60.0 / 60.0;
