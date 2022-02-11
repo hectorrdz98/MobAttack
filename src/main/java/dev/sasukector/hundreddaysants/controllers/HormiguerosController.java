@@ -4,19 +4,29 @@ import dev.sasukector.hundreddaysants.HundredDaysAnts;
 import dev.sasukector.hundreddaysants.helpers.ServerUtilities;
 import dev.sasukector.hundreddaysants.models.Hormiguero;
 import lombok.Getter;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import lombok.Setter;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.WitherSkeleton;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HormiguerosController {
 
     private static HormiguerosController instance = null;
     private final @Getter List<Hormiguero> hormigueros;
+    private @Getter @Setter boolean restartBoss = false;
 
     public static HormiguerosController getInstance() {
         if (instance == null) {
@@ -63,6 +73,46 @@ public class HormiguerosController {
                 ServerUtilities.sendServerMessage(player, "§cNo se pudo ir al hormiguero");
             }
         }
+    }
+
+    public void spawnEndBoss() {
+        World overworld = ServerUtilities.getWorld("overworld");
+        if (overworld == null) return;
+        Location location = new Location(overworld, 0, 65, 700);
+
+        WitherSkeleton witherSkeleton = (WitherSkeleton)
+                location.getWorld().spawnEntity(location, EntityType.WITHER_SKELETON, CreatureSpawnEvent.SpawnReason.CUSTOM);
+        witherSkeleton.customName(Component.text("Hijo de la Dragona", TextColor.color(0xF72585)));
+        witherSkeleton.addScoreboardTag("dragon_child");
+        witherSkeleton.setCustomNameVisible(true);
+        witherSkeleton.setPersistent(true);
+        Objects.requireNonNull(witherSkeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100);
+        Objects.requireNonNull(witherSkeleton.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(20);
+        witherSkeleton.setHealth(100);
+
+        ItemStack witherHelmet = new ItemStack(Material.PURPLE_STAINED_GLASS);
+        witherHelmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        ItemMeta witherHelmetMeta = witherHelmet.getItemMeta();
+        witherHelmetMeta.setUnbreakable(true);
+        witherHelmet.setItemMeta(witherHelmetMeta);
+        witherSkeleton.getEquipment().setHelmet(witherHelmet);
+        witherSkeleton.getEquipment().setDropChance(EquipmentSlot.HEAD, 0);
+
+        ItemStack witherBoots = new ItemStack(Material.NETHERITE_BOOTS);
+        witherBoots.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        ItemMeta witherBootsMeta = witherBoots.getItemMeta();
+        witherBootsMeta.setUnbreakable(true);
+        witherBoots.setItemMeta(witherBootsMeta);
+        witherSkeleton.getEquipment().setBoots(witherBoots);
+        witherSkeleton.getEquipment().setDropChance(EquipmentSlot.FEET, 0);
+
+        witherSkeleton.getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_SWORD));
+        witherSkeleton.getEquipment().setDropChance(EquipmentSlot.HAND, 0);
+
+        ServerUtilities.sendBroadcastMessage(ServerUtilities.getMiniMessage().parse(
+                "<color:#FFFFFF>Ha aparecido el </color><bold><color:#F72585>Hijo de la Dragona</color></bold>"
+        ));
+        ServerUtilities.playBroadcastSound("minecraft:entity.wither.spawn", 1f, 2f);
     }
 
     public Hormiguero getHormiguero(String name) {

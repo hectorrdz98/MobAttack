@@ -3,6 +3,7 @@ package dev.sasukector.hundreddaysants;
 import dev.sasukector.hundreddaysants.commands.*;
 import dev.sasukector.hundreddaysants.controllers.BoardController;
 import dev.sasukector.hundreddaysants.controllers.TeamsController;
+import dev.sasukector.hundreddaysants.events.GameEvents;
 import dev.sasukector.hundreddaysants.events.SpawnEvents;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -26,6 +27,7 @@ public final class HundredDaysAnts extends JavaPlugin {
 
         // Register events
         this.getServer().getPluginManager().registerEvents(new SpawnEvents(), this);
+        this.getServer().getPluginManager().registerEvents(new GameEvents(), this);
         Bukkit.getOnlinePlayers().forEach(player -> BoardController.getInstance().newPlayerBoard(player));
 
         // Register commands

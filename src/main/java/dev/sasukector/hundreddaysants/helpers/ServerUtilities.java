@@ -50,4 +50,14 @@ public class ServerUtilities {
                 .append(message));
     }
 
+    public static void sendBroadcastMessage(Component message) {
+        Bukkit.broadcast(getPluginNameColored()
+                .append(Component.text(" ▶ ", TextColor.color(0xC0C1C2)))
+                .append(message));
+    }
+
+    public static void playBroadcastSound(String sound, float volume, float pitch) {
+        Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), sound, volume, pitch));
+    }
+
 }

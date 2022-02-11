@@ -36,6 +36,10 @@ public class HormigueroCommand implements CommandExecutor, TabExecutor {
                         Bukkit.getScheduler().runTaskLater(HundredDaysAnts.getInstance(), () ->
                                 player.playSound(player.getLocation(), Sound.ITEM_CHORUS_FRUIT_TELEPORT, 1, 1),
                                 10L);
+                        if (!HormiguerosController.getInstance().isRestartBoss() && hormiguero.name().equals("end")) {
+                            HormiguerosController.getInstance().spawnEndBoss();
+                            HormiguerosController.getInstance().setRestartBoss(true);
+                        }
                     } else {
                         ServerUtilities.sendServerMessage(player, "§cNo se pudo ir al hormiguero");
                     }
