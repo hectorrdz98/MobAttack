@@ -1,6 +1,6 @@
-package dev.sasukector.hundreddaysborder.commands;
+package dev.sasukector.hundreddaysants.commands;
 
-import dev.sasukector.hundreddaysborder.helpers.ServerUtilities;
+import dev.sasukector.hundreddaysants.helpers.ServerUtilities;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;

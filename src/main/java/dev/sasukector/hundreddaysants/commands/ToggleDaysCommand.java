@@ -1,7 +1,7 @@
-package dev.sasukector.hundreddaysborder.commands;
+package dev.sasukector.hundreddaysants.commands;
 
-import dev.sasukector.hundreddaysborder.controllers.BoardController;
-import dev.sasukector.hundreddaysborder.helpers.ServerUtilities;
+import dev.sasukector.hundreddaysants.controllers.BoardController;
+import dev.sasukector.hundreddaysants.helpers.ServerUtilities;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

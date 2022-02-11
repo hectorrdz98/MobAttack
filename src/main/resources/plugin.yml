@@ -1,6 +1,6 @@
-name: HundredDaysBorder
+name: HundredDaysAnts
 version: '${project.version}'
-main: dev.sasukector.hundreddaysborder.HundredDaysBorder
+main: dev.sasukector.hundreddaysants.HundredDaysAnts
 api-version: 1.18
 authors: [ Sasukector ]
 description: This is the core plugin for a 100 days event
@@ -18,3 +18,6 @@ commands:
   inventory:
     description: Command to see player inventory
     usage: /inventory [playerName]
+  hormiguero:
+    description: Command to change from ant house
+    usage: /hormiguero [anthouse]

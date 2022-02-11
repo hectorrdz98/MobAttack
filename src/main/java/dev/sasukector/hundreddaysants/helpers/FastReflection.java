@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package dev.sasukector.hundreddaysborder.helpers;
+package dev.sasukector.hundreddaysants.helpers;
 
 import org.bukkit.Bukkit;
 

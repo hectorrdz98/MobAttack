@@ -1,6 +1,6 @@
-package dev.sasukector.hundreddaysborder.commands;
+package dev.sasukector.hundreddaysants.commands;
 
-import dev.sasukector.hundreddaysborder.helpers.ServerUtilities;
+import dev.sasukector.hundreddaysants.helpers.ServerUtilities;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;

@@ -1,8 +1,8 @@
-package dev.sasukector.hundreddaysborder.controllers;
+package dev.sasukector.hundreddaysants.controllers;
 
-import dev.sasukector.hundreddaysborder.HundredDaysBorder;
-import dev.sasukector.hundreddaysborder.helpers.FastBoard;
-import dev.sasukector.hundreddaysborder.helpers.ServerUtilities;
+import dev.sasukector.hundreddaysants.HundredDaysAnts;
+import dev.sasukector.hundreddaysants.helpers.FastBoard;
+import dev.sasukector.hundreddaysants.helpers.ServerUtilities;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -26,7 +26,7 @@ public class BoardController {
     }
 
     public BoardController() {
-        Bukkit.getScheduler().runTaskTimer(HundredDaysBorder.getInstance(), this::updateBoards, 0L, 20L);
+        Bukkit.getScheduler().runTaskTimer(HundredDaysAnts.getInstance(), this::updateBoards, 0L, 20L);
         this.hideDays = false;
     }
 
@@ -55,7 +55,6 @@ public class BoardController {
             World overworld = ServerUtilities.getWorld("overworld");
             if (overworld != null && !hideDays) {
                 lines.add("Día: §d" + (overworld.getFullTime() / 24000));
-                lines.add("Borde: §d" + String.format("%.0f", (overworld.getWorldBorder().getSize())));
             }
 
             double hours = player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20.0/ 60.0 / 60.0;

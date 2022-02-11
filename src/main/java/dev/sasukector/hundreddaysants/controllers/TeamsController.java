@@ -1,4 +1,4 @@
-package dev.sasukector.hundreddaysborder.controllers;
+package dev.sasukector.hundreddaysants.controllers;
 
 import lombok.Getter;
 import net.kyori.adventure.text.Component;

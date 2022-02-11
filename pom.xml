@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dev.sasukector</groupId>
-    <artifactId>HundredDaysBorder</artifactId>
+    <artifactId>HundredDaysAnts</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>HundredDaysBorder</name>
+    <name>HundredDaysAnts</name>
 
     <description>This is the core plugin for a 100 days event</description>
     <properties>
@@ -19,7 +19,7 @@
     <url>https://sasukector.dev</url>
 
     <build>
-        <finalName>HundredDaysBorder</finalName>
+        <finalName>HundredDaysAnts</finalName>
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
