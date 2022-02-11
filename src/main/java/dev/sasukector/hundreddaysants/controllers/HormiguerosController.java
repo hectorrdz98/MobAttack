@@ -53,8 +53,8 @@ public class HormiguerosController {
             if (location != null) {
                 player.teleport(location);
                 player.sendActionBar(ServerUtilities.getMiniMessage().parse(
-                        "<color:#5C4D7D>Hormiguero [</color><color:#B7094C>" +
-                                hormiguero.name() + "</color><color>]</color>"
+                        "<color:#FFFFFF>Hormiguero [</color><bold><color:#B7094C>" +
+                                hormiguero.name() + "</color></bold><color:#FFFFFF>]</color>"
                 ));
                 Bukkit.getScheduler().runTaskLater(HundredDaysAnts.getInstance(), () ->
                                 player.playSound(player.getLocation(), Sound.ITEM_CHORUS_FRUIT_TELEPORT, 1, 1),
