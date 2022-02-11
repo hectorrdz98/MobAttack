@@ -4,19 +4,16 @@ import dev.sasukector.hundreddaysants.HundredDaysAnts;
 import dev.sasukector.hundreddaysants.controllers.BoardController;
 import dev.sasukector.hundreddaysants.controllers.HormiguerosController;
 import dev.sasukector.hundreddaysants.controllers.TeamsController;
-import dev.sasukector.hundreddaysants.helpers.ServerUtilities;
-import dev.sasukector.hundreddaysants.models.Hormiguero;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class SpawnEvents implements Listener {
 
@@ -31,22 +28,7 @@ public class SpawnEvents implements Listener {
         if (player.isOp()) {
             TeamsController.getInstance().getMasterTeam().addEntry(player.getName());
         }
-        Hormiguero hormiguero =  HormiguerosController.getInstance().getCurrentHormiguero();
-        if (hormiguero != null) {
-            Location location = hormiguero.location();
-            if (location != null) {
-                player.teleport(location);
-                player.sendActionBar(ServerUtilities.getMiniMessage().parse(
-                        "<color:#5C4D7D>Hormiguero [</color><color:#B7094C>" +
-                                hormiguero.name() + "</color><color>]</color>"
-                ));
-                Bukkit.getScheduler().runTaskLater(HundredDaysAnts.getInstance(), () ->
-                        player.playSound(player.getLocation(), Sound.ITEM_CHORUS_FRUIT_TELEPORT, 1, 1),
-                        10L);
-            } else {
-                ServerUtilities.sendServerMessage(player, "§cNo se pudo ir al hormiguero");
-            }
-        }
+        HormiguerosController.getInstance().teleportPlayerToHormiguero(player);
         player.showTitle(Title.title(
                 Component.text("Bienvenido", TextColor.color(0xB7094C)),
                 Component.text("Al hormiguero", TextColor.color(0x5C4D7D))
@@ -61,6 +43,13 @@ public class SpawnEvents implements Listener {
                 Component.text("- ", TextColor.color(0xE38486))
                         .append(Component.text(player.getName(), TextColor.color(0xE38486)))
         );
+    }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        Bukkit.getScheduler().runTaskLater(HundredDaysAnts.getInstance(), () ->
+                HormiguerosController.getInstance().teleportPlayerToHormiguero(event.getPlayer()),
+                5L);
     }
 
 }
