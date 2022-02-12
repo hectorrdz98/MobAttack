@@ -35,6 +35,7 @@ public final class HundredDaysAnts extends JavaPlugin {
         Objects.requireNonNull(HundredDaysAnts.getInstance().getCommand("played")).setExecutor(new PlayedCommand());
         Objects.requireNonNull(HundredDaysAnts.getInstance().getCommand("toggleDays")).setExecutor(new ToggleDaysCommand());
         Objects.requireNonNull(HundredDaysAnts.getInstance().getCommand("inventory")).setExecutor(new InventoryCommand());
+        Objects.requireNonNull(HundredDaysAnts.getInstance().getCommand("sit")).setExecutor(new SitCommand());
         Objects.requireNonNull(HundredDaysAnts.getInstance().getCommand("hormiguero")).setExecutor(new HormigueroCommand());
 
         // Start teams

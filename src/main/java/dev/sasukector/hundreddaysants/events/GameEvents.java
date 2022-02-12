@@ -4,18 +4,34 @@ import dev.sasukector.hundreddaysants.controllers.HormiguerosController;
 import dev.sasukector.hundreddaysants.helpers.ServerUtilities;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.spigotmc.event.entity.EntityDismountEvent;
 
 import java.util.Random;
 
 public class GameEvents implements Listener {
 
     private final Random random = new Random();
+
+    @EventHandler
+    public void onPlayerDismount(EntityDismountEvent event) {
+        if (event.getEntity() instanceof Player player && event.getDismounted() instanceof ArmorStand armorStand) {
+            if (armorStand.getScoreboardTags().contains("chair")) {
+                armorStand.remove();
+                player.playSound(player.getLocation(), Sound.ENTITY_PIG_SADDLE, 1, 1.6f);
+                player.sendActionBar(ServerUtilities.getMiniMessage().parse(
+                        "<color:#FED9B7>Te has levantado</color>"
+                ));
+                player.teleport(player.getLocation().add(0, 0.5, 0));
+            }
+        }
+    }
 
     @EventHandler
     public void onEntitySpawn(CreatureSpawnEvent event) {

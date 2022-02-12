@@ -18,6 +18,9 @@ commands:
   inventory:
     description: Command to see player inventory
     usage: /inventory [playerName]
+  sit:
+    description: Command to sit
+    usage: /sit
   hormiguero:
     description: Command to change from ant house
     usage: /hormiguero [anthouse]
