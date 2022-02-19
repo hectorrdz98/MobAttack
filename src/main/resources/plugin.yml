@@ -1,9 +1,9 @@
-name: HundredDaysAnts
+name: MobAttack
 version: '${project.version}'
-main: dev.sasukector.hundreddaysants.HundredDaysAnts
+main: dev.sasukector.mobattack.MobAttack
 api-version: 1.18
 authors: [ Sasukector ]
-description: This is the core plugin for a 100 days event
+description: This is the core plugin for mob attack!
 website: https://sasukector.dev
 commands:
   played:
