@@ -81,7 +81,7 @@ public class SpawnEvents implements Listener {
                         .append(Component.text(player.getName(), TextColor.color(0xE38486)))
         );
         if (TeamsController.getInstance().isFinalist(player) &&
-                GameController.getInstance().getCurrentStatus() != GameController.Status.LOOTING) {
+                GameController.getInstance().getCurrentStatus() != GameController.Status.LOBBY) {
             ServerUtilities.sendBroadcastMessage(ServerUtilities.getMiniMessage().parse(
                     "<bold><color:#F94144>" + player.getName() +
                             "</color></bold> <color:#F94144>ha abandonado la partida</color>"
