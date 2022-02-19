@@ -1,6 +1,6 @@
-package dev.sasukector.hundreddaysants.commands;
+package dev.sasukector.mobattack.commands;
 
-import dev.sasukector.hundreddaysants.helpers.ServerUtilities;
+import dev.sasukector.mobattack.helpers.ServerUtilities;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;

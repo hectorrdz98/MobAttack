@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dev.sasukector</groupId>
-    <artifactId>HundredDaysAnts</artifactId>
+    <artifactId>MobAttack</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>HundredDaysAnts</name>
+    <name>MobAttack</name>
 
-    <description>This is the core plugin for a 100 days event</description>
+    <description>This is the core plugin for mob attack!</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,7 +19,7 @@
     <url>https://sasukector.dev</url>
 
     <build>
-        <finalName>HundredDaysAnts</finalName>
+        <finalName>MobAttack</finalName>
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
@@ -77,7 +77,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>RELEASE</version>
+            <version>1.18.22</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

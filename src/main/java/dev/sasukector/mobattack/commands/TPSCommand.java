@@ -1,6 +1,6 @@
-package dev.sasukector.hundreddaysants.commands;
+package dev.sasukector.mobattack.commands;
 
-import dev.sasukector.hundreddaysants.helpers.ServerUtilities;
+import dev.sasukector.mobattack.helpers.ServerUtilities;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

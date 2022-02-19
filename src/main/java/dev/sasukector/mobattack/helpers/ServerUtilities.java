@@ -1,4 +1,4 @@
-package dev.sasukector.hundreddaysants.helpers;
+package dev.sasukector.mobattack.helpers;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +35,7 @@ public class ServerUtilities {
     }
 
     public static Component getPluginNameColored() {
-        return miniMessage.parse("<bold><gradient:#5C4D7D:#B7094C>100 días</gradient></bold>");
+        return miniMessage.parse("<bold><gradient:#5C4D7D:#B7094C>La invasión</gradient></bold>");
     }
 
     public static void sendServerMessage(Player player, String message) {

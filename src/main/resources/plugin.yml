@@ -9,9 +9,6 @@ commands:
   played:
     description: Command to see played time of a player
     usage: /played [playerName]
-  toggleDays:
-    description: Command to toggle days display
-    usage: /toggleDays
   conter-tps:
     description: Command to display tps
     usage: /tps
@@ -21,6 +18,3 @@ commands:
   sit:
     description: Command to sit
     usage: /sit
-  hormiguero:
-    description: Command to change from ant house
-    usage: /hormiguero [anthouse]

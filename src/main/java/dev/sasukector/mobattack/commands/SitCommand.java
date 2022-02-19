@@ -1,7 +1,7 @@
-package dev.sasukector.hundreddaysants.commands;
+package dev.sasukector.mobattack.commands;
 
-import dev.sasukector.hundreddaysants.HundredDaysAnts;
-import dev.sasukector.hundreddaysants.helpers.ServerUtilities;
+import dev.sasukector.mobattack.MobAttack;
+import dev.sasukector.mobattack.helpers.ServerUtilities;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -31,7 +31,7 @@ public class SitCommand implements CommandExecutor {
                     armorStand.getScoreboardTags().add("chair");
                     armorStand.addPassenger(player);
                     player.playSound(player.getLocation(), Sound.ENTITY_PIG_SADDLE, 1, 1.6f);
-                    Bukkit.getScheduler().runTaskLater(HundredDaysAnts.getInstance(), () ->
+                    Bukkit.getScheduler().runTaskLater(MobAttack.getInstance(), () ->
                             player.sendActionBar(ServerUtilities.getMiniMessage().parse(
                                     "<color:#FED9B7>Sentado, </color><bold><color:#F07167>[Shift]</color></bold><color:#FED9B7> para desmontarte</color>"
                             )), 5);
