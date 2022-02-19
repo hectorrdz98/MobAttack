@@ -41,11 +41,22 @@ public class SpawnEvents implements Listener {
         BoardController.getInstance().newPlayerBoard(player);
         if (player.isOp()) {
             TeamsController.getInstance().getMasterTeam().addEntry(player.getName());
+        } else {
+            if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
+                TeamsController.getInstance().getPlayingTeam().addEntry(player.getName());
+            } else {
+                TeamsController.getInstance().getEliminatedTeam().addEntry(player.getName());
+            }
         }
         Bukkit.getScheduler().runTaskLater(MobAttack.getInstance(), () -> {
             String message = "Es momento de armarse";
             Location spawnLocation = GameController.getInstance().getLootingArea();
-            if (GameController.getInstance().getCurrentStatus() != GameController.Status.LOOTING) {
+            if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
+                GameController.getInstance().restartPlayer(player);
+                message = "Espera a que inicie la partida";
+                spawnLocation = GameController.getInstance().getSpectatorAreas()
+                        .get(random.nextInt(GameController.getInstance().getSpectatorAreas().size()));
+            } else if (GameController.getInstance().getCurrentStatus() != GameController.Status.LOOTING) {
                 GameController.getInstance().restartPlayer(player);
                 message = "Estás observando la partida";
                 spawnLocation = GameController.getInstance().getSpectatorAreas()
@@ -58,7 +69,6 @@ public class SpawnEvents implements Listener {
             ));
             player.teleport(spawnLocation);
             ServerUtilities.sendServerMessage(player, message);
-
         }, 5L);
     }
 
@@ -70,12 +80,19 @@ public class SpawnEvents implements Listener {
                 Component.text("- ", TextColor.color(0xE38486))
                         .append(Component.text(player.getName(), TextColor.color(0xE38486)))
         );
+        if (TeamsController.getInstance().isFinalist(player) &&
+                GameController.getInstance().getCurrentStatus() != GameController.Status.LOOTING) {
+            ServerUtilities.sendBroadcastMessage(ServerUtilities.getMiniMessage().parse(
+                    "<bold><color:#F94144>" + player.getName() +
+                            "</color></bold> <color:#F94144>ha abandonado la partida</color>"
+            ));
+        }
     }
 
     @EventHandler
     public void onMobSpawn(EntitySpawnEvent event) {
         if (event.getEntity() instanceof LivingEntity) {
-            if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
+            if (GameController.getInstance().getCurrentStatus() != GameController.Status.PLAYING) {
                 event.setCancelled(true);
             }
         }
@@ -83,21 +100,27 @@ public class SpawnEvents implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
-        if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
+        if (GameController.getInstance().getCurrentStatus() != GameController.Status.PLAYING) {
+            event.setCancelled(true);
+        } else if (event.getEntity() instanceof Player player && TeamsController.getInstance().isEliminated(player)) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
+        if (GameController.getInstance().getCurrentStatus() != GameController.Status.PLAYING) {
+            event.setCancelled(true);
+        } else if (event.getEntity() instanceof Player player && TeamsController.getInstance().isEliminated(player)) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onHunger(FoodLevelChangeEvent event) {
-        if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
+        if (GameController.getInstance().getCurrentStatus() != GameController.Status.PLAYING) {
+            event.setCancelled(true);
+        } else if (event.getEntity() instanceof Player player && TeamsController.getInstance().isEliminated(player)) {
             event.setCancelled(true);
         }
     }
@@ -121,6 +144,8 @@ public class SpawnEvents implements Listener {
                 if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
                     if (event.getPlayer().getGameMode() != GameMode.CREATIVE)
                         event.setCancelled(true);
+                } else if (TeamsController.getInstance().isEliminated(event.getPlayer())) {
+                    event.setCancelled(true);
                 }
             }
         }
@@ -131,6 +156,8 @@ public class SpawnEvents implements Listener {
         if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
             if (event.getPlayer().getGameMode() != GameMode.CREATIVE)
                 event.setCancelled(true);
+        } else if (TeamsController.getInstance().isEliminated(event.getPlayer())) {
+            event.setCancelled(true);
         }
     }
 
@@ -139,6 +166,8 @@ public class SpawnEvents implements Listener {
         if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
             if (event.getPlayer().getGameMode() != GameMode.CREATIVE)
                 event.setCancelled(true);
+        } else if (TeamsController.getInstance().isEliminated(event.getPlayer())) {
+            event.setCancelled(true);
         }
     }
 
@@ -147,6 +176,8 @@ public class SpawnEvents implements Listener {
         if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
             if (event.getPlayer().getGameMode() != GameMode.CREATIVE)
                 event.setCancelled(true);
+        } else if (TeamsController.getInstance().isEliminated(event.getPlayer())) {
+            event.setCancelled(true);
         }
     }
 
