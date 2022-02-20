@@ -61,7 +61,7 @@ public class BoardController {
             lines.add("Jugando: §d" + TeamsController.getInstance().getPlayingPlayers().size());
             lines.add("Eliminados: §7" + TeamsController.getInstance().getEliminatedPlayers().size());
             lines.add("");
-            lines.add("Ronda actual: §b" + GameController.getInstance().getCurrentRound());
+            lines.add("Oleada actual: §b" + GameController.getInstance().getCurrentRound());
             lines.add("");
             lines.add("Online: §6" + Bukkit.getOnlinePlayers().size());
             if (player.isOp() && !player.getName().equals("Conterstine")) {

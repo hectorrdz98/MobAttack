@@ -78,6 +78,10 @@ public class ServerUtilities {
         }
     }
 
+    public static void sendBroadcastActionBar(Component message) {
+        Bukkit.getOnlinePlayers().forEach(player -> player.sendActionBar(message));
+    }
+
     public static void playBroadcastSound(String sound, float volume, float pitch) {
         Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getLocation(), sound, volume, pitch));
     }

@@ -246,18 +246,26 @@ public class GameController {
         this.teleportAllPlayingPlayers(this.arenaArea);
         WaveController.getInstance().deleteItemsOnGround();
         WaveController.getInstance().createWave();
-        ServerUtilities.sendBroadcastTitle(
-                Component.text("Iniciando", TextColor.color(0x0096C7)),
-                Component.text("ronda...", TextColor.color(0x48CAE4))
-        );
-        ServerUtilities.sendBroadcastAnnounce(
-                ServerUtilities.getMiniMessage().parse(
-                        "<bold><gradient:#5C4D7D:#B7094C>Oleada #" + this.currentRound + "</gradient></bold>"
-                ),
-                ServerUtilities.getMiniMessage().parse(
-                        "Alista tu inventario, en <bold><color:#FB8500>30 segundos</color></bold> llegarán los mobs..."
-                )
-        );
+        if (WaveController.getInstance().getCurrentWaveType() == WaveController.WaveType.NORMAL) {
+            ServerUtilities.sendBroadcastAnnounce(
+                    ServerUtilities.getMiniMessage().parse(
+                            "<bold><gradient:#5C4D7D:#B7094C>Oleada #" + this.currentRound + "</gradient></bold>"
+                    ),
+                    ServerUtilities.getMiniMessage().parse(
+                            "Alista tu inventario, en <bold><color:#FB8500>30 segundos</color></bold> llegarán los mobs..."
+                    )
+            );
+        } else {
+            ServerUtilities.sendBroadcastAnnounce(
+                    ServerUtilities.getMiniMessage().parse(
+                            "<bold><gradient:#5C4D7D:#B7094C>Oleada #" + this.currentRound + " - BOSS -</gradient></bold>"
+                    ),
+                    ServerUtilities.getMiniMessage().parse(
+                            "Esta es una oleada de jefe, en <bold><color:#FB8500>30 segundos</color></bold> tendrán " +
+                                    "que matarlo para pasar a la siguiente ronda..."
+                    )
+            );
+        }
         BossBarController.getInstance().createTimerBossBar(
                 30,
                 "gameStartingRound",
@@ -289,8 +297,8 @@ public class GameController {
                             "<bold><gradient:#5C4D7D:#B7094C>Oleada #" + this.currentRound + " completada</gradient></bold>"
                     ),
                     ServerUtilities.getMiniMessage().parse(
-                            "¡Felicidades! Has completado la ronda, tienes <bold><color:#FB8500>30 segundos</color></bold> " +
-                                    "para agarrar lo que ocupes del suelo, en lo que se prepara la siguiente ronda."
+                            "¡Felicidades! Has completado la oleada, tienes <bold><color:#FB8500>30 segundos</color></bold> " +
+                                    "para agarrar lo que ocupes del suelo, en lo que se prepara la siguiente oleada."
                     )
             );
             BossBarController.getInstance().createTimerBossBar(
@@ -328,10 +336,8 @@ public class GameController {
     }
 
     public void checkPossibleWaveWin() {
-        if (WaveController.getInstance().getCurrentWaveType() == WaveController.WaveType.NORMAL) {
-            if (WaveController.getInstance().getWaveEntities().size() == 0) {
-                this.gamePausingRound();
-            }
+        if (WaveController.getInstance().getWaveEntities().size() == 0) {
+            this.gamePausingRound();
         }
     }
 

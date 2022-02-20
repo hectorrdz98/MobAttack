@@ -6,12 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 public class BossBarController {
 
@@ -84,23 +87,42 @@ public class BossBarController {
 
     public void createWaveBossBar() {
         this.stopCurrentBossBar();
-        currentBossBar.setColor(BarColor.YELLOW);
-        currentBossBar.setStyle(BarStyle.SOLID);
-        currentBossBar.setProgress(1);
-        currentBossBar.setVisible(true);
-        Bukkit.getOnlinePlayers().forEach(player -> currentBossBar.addPlayer(player));
-        this.taskID = new BukkitRunnable() {
-            @Override
-            public void run() {
-                currentBossBar.setTitle("Quedan §e" + WaveController.getInstance().getWaveEntities().size() + " enemigos");
-                int current = WaveController.getInstance().getWaveEntities().size();
-                if (current != 0) {
-                    currentBossBar.setProgress(current / (double) WaveController.getInstance().getMaxEntities());
-                } else {
-                    currentBossBar.setProgress(0);
+        if (WaveController.getInstance().getCurrentWaveType() == WaveController.WaveType.NORMAL) {
+            currentBossBar.setColor(BarColor.YELLOW);
+            currentBossBar.setStyle(BarStyle.SOLID);
+            currentBossBar.setProgress(1);
+            currentBossBar.setVisible(true);
+            Bukkit.getOnlinePlayers().forEach(player -> currentBossBar.addPlayer(player));
+            this.taskID = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    currentBossBar.setTitle("Quedan §e" + WaveController.getInstance().getWaveEntities().size() + " enemigos");
+                    int current = WaveController.getInstance().getWaveEntities().size();
+                    if (current != 0) {
+                        currentBossBar.setProgress(current / (double) WaveController.getInstance().getMaxEntities());
+                    } else {
+                        currentBossBar.setProgress(0);
+                    }
                 }
-            }
-        }.runTaskTimer(MobAttack.getInstance(), 0L, 20L).getTaskId();
+            }.runTaskTimer(MobAttack.getInstance(), 0L, 20L).getTaskId();
+        } else {
+            currentBossBar.setColor(BarColor.RED);
+            currentBossBar.setStyle(BarStyle.SEGMENTED_20);
+            currentBossBar.setProgress(1);
+            currentBossBar.setVisible(true);
+            Bukkit.getOnlinePlayers().forEach(player -> currentBossBar.addPlayer(player));
+            this.taskID = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    LivingEntity boss = WaveController.getInstance().getWaveEntities().get(0);
+                    double currentHealth = boss.getHealth();
+                    double maxHealth = Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue();
+                    currentBossBar.setTitle("Vida [§e" + Math.round(currentHealth) +
+                            "§r, §c" +Math.round(maxHealth) + "§r]");
+                    currentBossBar.setProgress(currentHealth / maxHealth);
+                }
+            }.runTaskTimer(MobAttack.getInstance(), 0L, 20L).getTaskId();
+        }
     }
 
 }
