@@ -166,23 +166,21 @@ public class WaveController {
             zombie.getEquipment().setChestplate(null);
             zombie.getEquipment().setLeggings(null);
             zombie.getEquipment().setBoots(null);
-            ItemStack hand = null;
+            ItemStack hand;
             if (random.nextFloat() >= 0.9) {
-                hand = new ItemStack(Material.IRON_SWORD);
+                hand = new ItemStack(Material.NETHERITE_SWORD);
             } else if (random.nextFloat() >= 0.7) {
-                hand = new ItemStack(Material.STONE_SWORD);
-            } else if (random.nextFloat() >= 0.4) {
-                hand = new ItemStack(Material.WOODEN_SWORD);
+                hand = new ItemStack(Material.DIAMOND_SWORD);
+            } else {
+                hand = new ItemStack(Material.IRON_SWORD);
             }
-            if (hand != null) {
-                if (random.nextFloat() >= 0.9) {
-                    hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
-                } else if (random.nextFloat() >= 0.7) {
-                    hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
-                }
-                if (random.nextFloat() >= 0.9) {
-                    hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
-                }
+            if (random.nextFloat() >= 0.9) {
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
+            } else if (random.nextFloat() >= 0.7) {
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
+            }
+            if (random.nextFloat() >= 0.9) {
+                hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
             }
             zombie.getEquipment().setItemInMainHand(hand);
         }
@@ -203,17 +201,17 @@ public class WaveController {
             skeleton.getEquipment().setBoots(null);
             ItemStack hand = new ItemStack(Material.BOW);
             if (random.nextFloat() >= 0.9) {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 3);
+                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 6);
             } else if (random.nextFloat() >= 0.7) {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 2);
-            } else if (random.nextFloat() >= 0.4) {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1);
+                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 5);
+            } else {
+                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 4);
             }
             if (random.nextFloat() >= 0.7) {
                 hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 1);
             }
             if (random.nextFloat() >= 0.7) {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 1);
+                hand.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 2);
             }
             skeleton.getEquipment().setItemInMainHand(hand);
         }
@@ -233,27 +231,27 @@ public class WaveController {
             zombie.getEquipment().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
             zombie.getEquipment().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
             zombie.getEquipment().setBoots(new ItemStack(Material.IRON_BOOTS));
-            ItemStack hand = null;
+            ItemStack hand;
             if (random.nextFloat() >= 0.6) {
-                hand = new ItemStack(Material.IRON_SWORD);
+                hand = new ItemStack(Material.NETHERITE_SWORD);
             } else if (random.nextFloat() >= 0.4) {
-                hand = new ItemStack(Material.STONE_SWORD);
-            } else if (random.nextFloat() >= 0.2) {
-                hand = new ItemStack(Material.WOODEN_SWORD);
+                hand = new ItemStack(Material.DIAMOND_SWORD);
+            } else {
+                hand = new ItemStack(Material.IRON_SWORD);
             }
-            if (hand != null) {
-                if (random.nextFloat() >= 0.6) {
-                    hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
-                } else if (random.nextFloat() >= 0.4) {
-                    hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
-                }
-                if (random.nextFloat() >= 0.6) {
-                    hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
-                }
+            if (random.nextFloat() >= 0.6) {
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
+            } else if (random.nextFloat() >= 0.4) {
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 4);
+            } else {
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
+            }
+            if (random.nextFloat() >= 0.6) {
+                hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
             }
             zombie.getEquipment().setItemInMainHand(hand);
         }
-        for (int i = 0; i < 50; ++i) {
+        for (int i = 0; i < 100; ++i) {
             Zombie zombie = (Zombie) world.spawnEntity(this.getRandomLocation(world), EntityType.ZOMBIE);
             this.waveEntities.add(zombie);
             this.maxEntities++;
@@ -268,8 +266,8 @@ public class WaveController {
             zombie.getEquipment().setChestplate(null);
             zombie.getEquipment().setLeggings(null);
             zombie.getEquipment().setBoots(null);
-            ItemStack hand = new ItemStack(Material.STONE_SWORD);
-            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
+            ItemStack hand = new ItemStack(Material.NETHERITE_SWORD);
+            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
             if (random.nextFloat() >= 0.9) {
                 hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
             }
@@ -286,7 +284,7 @@ public class WaveController {
             skeleton.getEquipment().setLeggings(null);
             skeleton.getEquipment().setBoots(null);
             ItemStack hand = new ItemStack(Material.BOW);
-            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 2);
+            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 4);
             if (random.nextFloat() >= 0.7) {
                 hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 2);
             }
@@ -300,7 +298,7 @@ public class WaveController {
     public void generateWave4(World world) {
         this.currentWaveType = WaveType.NORMAL;
         this.maxEntities = 0;
-        for (int i = 0; i < 50; ++i) {
+        for (int i = 0; i < 150; ++i) {
             Zombie zombie = (Zombie) world.spawnEntity(this.getRandomLocation(world), EntityType.ZOMBIE);
             this.waveEntities.add(zombie);
             this.maxEntities++;
@@ -315,17 +313,17 @@ public class WaveController {
             zombie.getEquipment().setChestplate(null);
             zombie.getEquipment().setLeggings(null);
             zombie.getEquipment().setBoots(null);
-            ItemStack hand = new ItemStack(Material.STONE_SWORD);
+            ItemStack hand = new ItemStack(Material.DIAMOND_SWORD);
             if (random.nextFloat() >= 0.7) {
-                hand.setType(Material.IRON_SWORD);
+                hand.setType(Material.NETHERITE_SWORD);
             }
-            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
+            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
             if (random.nextFloat() >= 0.5) {
                 hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
             }
             zombie.getEquipment().setItemInMainHand(hand);
         }
-        for (int i = 0; i < 50; ++i) {
+        for (int i = 0; i < 100; ++i) {
             Vindicator vindicator = (Vindicator) world.spawnEntity(this.getRandomLocation(world), EntityType.VINDICATOR);
             this.waveEntities.add(vindicator);
             this.maxEntities++;
@@ -335,9 +333,11 @@ public class WaveController {
             vindicator.getEquipment().setChestplate(null);
             vindicator.getEquipment().setLeggings(null);
             vindicator.getEquipment().setBoots(null);
-            ItemStack hand = new ItemStack(Material.IRON_AXE);
+            ItemStack hand = new ItemStack(Material.NETHERITE_AXE);
             if (random.nextFloat() >= 0.8) {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 4);
+            } else {
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
             }
             vindicator.getEquipment().setItemInMainHand(hand);
         }
@@ -351,25 +351,24 @@ public class WaveController {
         boss.customName(Component.text("El rey del nether", TextColor.color(0xCFBAF0)));
         boss.setCustomNameVisible(true);
         this.basicEntityConfiguration(boss);
-        Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(500f);
+        Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(2000f);
         Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
         Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(30);
-        boss.setHealth(500f);
+        boss.setHealth(2000f);
         boss.getEquipment().setHelmet(null);
         boss.getEquipment().setChestplate(null);
         boss.getEquipment().setLeggings(null);
         boss.getEquipment().setBoots(null);
 
-        ItemStack sword = new ItemStack(Material.IRON_SWORD);
-        sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
+        ItemStack sword = new ItemStack(Material.NETHERITE_SWORD);
+        sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
         ItemMeta swordMeta = sword.getItemMeta();
         swordMeta.setUnbreakable(true);
         sword.setItemMeta(swordMeta);
         boss.getEquipment().setItemInMainHand(sword);
 
         ItemStack bow = new ItemStack(Material.BOW);
-        bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 6);
-        bow.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 3);
+        bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 10);
         ItemMeta bowMeta = bow.getItemMeta();
         bowMeta.setUnbreakable(true);
         bow.setItemMeta(bowMeta);
@@ -411,11 +410,12 @@ public class WaveController {
                                     case 2 -> {
                                         TeamsController.getInstance().getPlayingPlayers().forEach(player -> {
                                             world.strikeLightning(player.getLocation());
-                                            for (int i = 0; i < random.nextInt(3) + 1; ++i) {
+                                            for (int i = 0; i < random.nextInt(2) + 1; ++i) {
                                                 WitherSkeleton witherSkeleton =
                                                         summonFirstBossEnemy(world, player.getLocation(), 40f, 0.4f);
                                                 ItemStack skeletonHand = new ItemStack(Material.STICK);
-                                                skeletonHand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 6);
+                                                skeletonHand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
+                                                skeletonHand.addUnsafeEnchantment(Enchantment.KNOCKBACK, 10);
                                                 witherSkeleton.getEquipment().setItemInMainHand(skeletonHand);
                                             }
                                         });
@@ -427,7 +427,7 @@ public class WaveController {
                                 }
                             }
                         } else {
-                            if (boss.getEquipment().getItemInMainHand().getType() == Material.IRON_SWORD) {
+                            if (boss.getEquipment().getItemInMainHand().getType() == Material.NETHERITE_SWORD) {
                                 boss.getEquipment().setItemInMainHand(bow);
                                 ServerUtilities.playBroadcastSound("minecraft:entity.wither.shoot", 1, 0.2f);
                             } else {
@@ -447,10 +447,10 @@ public class WaveController {
             WitherSkeleton witherSkeleton =
                     this.summonFirstBossEnemy(world, this.getRandomLocation(world), 50f, 0.35f);
             ItemStack skeletonHand = new ItemStack(Material.BOW);
-            skeletonHand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1);
+            skeletonHand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 10);
             if (i >= 50) {
-                skeletonHand = new ItemStack(Material.STONE_SWORD);
-                skeletonHand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
+                skeletonHand = new ItemStack(Material.IRON_SWORD);
+                skeletonHand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
             }
             witherSkeleton.getEquipment().setItemInMainHand(skeletonHand);
         }
@@ -474,8 +474,8 @@ public class WaveController {
     public void generateWave6(World world) {
         this.currentWaveType = WaveType.NORMAL;
         this.maxEntities = 0;
-        for (int i = 0; i < 100; ++i) {
-            Creeper creeper = this.summonCreeper("Sustitos", world, this.getRandomLocation(world), 40f, 0.4f);
+        for (int i = 0; i < 200; ++i) {
+            Creeper creeper = this.summonCreeper("Sustitos", world, this.getRandomLocation(world), 80f, 0.4f);
             creeper.addScoreboardTag(tagInmuneToArrows);
             creeper.addScoreboardTag(tagInmuneToExplosions);
             this.waveEntities.add(creeper);
@@ -506,24 +506,24 @@ public class WaveController {
             zombie.setAdult();
             Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
             ItemStack helmet = new ItemStack(Material.DIAMOND_HELMET);
-            helmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+            helmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
             zombie.getEquipment().setHelmet(helmet);
-            ItemStack chestplate = new ItemStack(Material.GOLDEN_CHESTPLATE);
-            chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+            ItemStack chestplate = new ItemStack(Material.DIAMOND_CHESTPLATE);
+            chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
             zombie.getEquipment().setChestplate(chestplate);
-            ItemStack leggings = new ItemStack(Material.GOLDEN_LEGGINGS);
-            leggings.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+            ItemStack leggings = new ItemStack(Material.DIAMOND_LEGGINGS);
+            leggings.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
             zombie.getEquipment().setLeggings(leggings);
             ItemStack boots = new ItemStack(Material.DIAMOND_BOOTS);
-            boots.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+            boots.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
             zombie.getEquipment().setBoots(boots);
-            ItemStack hand = new ItemStack(Material.IRON_SWORD);
+            ItemStack hand = new ItemStack(Material.NETHERITE_SWORD);
             if (random.nextFloat() >= 0.6) {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
             } else if (random.nextFloat() >= 0.4) {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 4);
             } else {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
             }
             if (random.nextFloat() >= 0.6) {
                 hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
@@ -545,12 +545,12 @@ public class WaveController {
             skeleton.getEquipment().setLeggings(null);
             skeleton.getEquipment().setBoots(null);
             ItemStack hand = new ItemStack(Material.BOW);
-            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 4);
+            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 8);
             if (random.nextFloat() >= 0.7) {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 4);
+                hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 10);
             } else {
                 if (random.nextFloat() >= 0.7) {
-                    hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 3);
+                    hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 8);
                 }
             }
             if (random.nextFloat() >= 0.7) {
@@ -558,15 +558,15 @@ public class WaveController {
             }
             skeleton.getEquipment().setItemInMainHand(hand);
         }
-        for (int i = 0; i < 25; ++i) {
-            Creeper creeper = this.summonCreeper("Sustitos", world, this.getRandomLocation(world), 40f, 0.4f);
+        for (int i = 0; i < 50; ++i) {
+            Creeper creeper = this.summonCreeper("Sustitos", world, this.getRandomLocation(world), 80f, 0.4f);
             creeper.addScoreboardTag(tagInmuneToExplosions);
             creeper.addScoreboardTag(tagInmuneToArrows);
             this.waveEntities.add(creeper);
             this.maxEntities++;
         }
-        for (int i = 0; i < 25; ++i) {
-            Creeper creeper = this.summonCreeper("Pum pum", world, this.getRandomLocation(world), 40f, 0.5f);
+        for (int i = 0; i < 50; ++i) {
+            Creeper creeper = this.summonCreeper("Pum pum", world, this.getRandomLocation(world), 200f, 0.5f);
             this.waveEntities.add(creeper);
             this.maxEntities++;
         }
@@ -575,23 +575,23 @@ public class WaveController {
     public void generateWave8(World world) {
         this.currentWaveType = WaveType.NORMAL;
         this.maxEntities = 0;
-        for (int i = 0; i < 50; ++i) {
-            Creeper creeper = this.summonCreeper("Pum pum", world, this.getRandomLocation(world), 40f, 0.5f);
+        for (int i = 0; i < 100; ++i) {
+            Creeper creeper = this.summonCreeper("Pum pum", world, this.getRandomLocation(world), 200f, 0.5f);
             this.waveEntities.add(creeper);
             this.maxEntities++;
         }
-        for (int i = 0; i < 50; ++i) {
+        for (int i = 0; i < 100; ++i) {
             Spider spider = (Spider) world.spawnEntity(this.getRandomLocation(world), EntityType.SPIDER);
             this.waveEntities.add(spider);
             this.maxEntities++;
             spider.customName(Component.text("Arañita", TextColor.color(0xDAF59B)));
             this.basicEntityConfiguration(spider);
-            Objects.requireNonNull(spider.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(40f);
-            spider.setHealth(40f);
+            Objects.requireNonNull(spider.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(200f);
+            spider.setHealth(200f);
             spider.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 999999, 1));
-            spider.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 1));
-            spider.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999, 4));
-            spider.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 4));
+            spider.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 6));
+            spider.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999, 6));
+            spider.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 6));
         }
         for (int i = 0; i < 100; ++i) {
             Zombie zombie = (Zombie) world.spawnEntity(this.getRandomLocation(world), EntityType.ZOMBIE);
@@ -600,12 +600,12 @@ public class WaveController {
             zombie.customName(Component.text("Conter", TextColor.color(0x98F5E1)));
             this.basicEntityConfiguration(zombie);
             zombie.setAdult();
-            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(40f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(200f);
             Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.4f);
             Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(10);
-            zombie.setHealth(40f);
+            zombie.setHealth(200f);
             ItemStack hand = new ItemStack(Material.NETHERITE_SWORD);
-            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
+            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
             zombie.getEquipment().setItemInMainHand(hand);
         }
     }
@@ -613,25 +613,28 @@ public class WaveController {
     public void generateWave9(World world) {
         this.currentWaveType = WaveType.NORMAL;
         this.maxEntities = 0;
-        for (int i = 0; i < 50; ++i) {
+        for (int i = 0; i < 150; ++i) {
             Evoker evoker = (Evoker) world.spawnEntity(this.getRandomLocation(world), EntityType.EVOKER);
             this.waveEntities.add(evoker);
             this.maxEntities++;
             evoker.customName(Component.text("Capuchita", TextColor.color(0x808CF5)));
             this.basicEntityConfiguration(evoker);
-            Objects.requireNonNull(evoker.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(40f);
-            evoker.setHealth(40f);
+            Objects.requireNonNull(evoker.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(300f);
+            evoker.setHealth(300f);
             evoker.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 999999, 1));
-            evoker.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999, 4));
+            evoker.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999, 8));
+            evoker.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 3));
         }
-        for (int i = 0; i < 25; ++i) {
+        for (int i = 0; i < 50; ++i) {
             Ravager ravager = (Ravager) world.spawnEntity(this.getRandomLocation(world), EntityType.RAVAGER);
             this.waveEntities.add(ravager);
             this.maxEntities++;
             ravager.customName(Component.text("Guerrero Perdido", TextColor.color(0x808CF5)));
             this.basicEntityConfiguration(ravager);
-            ravager.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 1));
-            ravager.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 1));
+            Objects.requireNonNull(ravager.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(500f);
+            ravager.setHealth(500f);
+            ravager.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 3));
+            ravager.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 3));
         }
     }
 
