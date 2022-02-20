@@ -62,11 +62,16 @@ public class ServerUtilities {
                 .append(message));
     }
 
-    public static void sendBroadcastAnnounce(Component message) {
+    public static void sendBroadcastAnnounce(Component title, Component message) {
+        playBroadcastSound("minecraft:music.effects.line", 1, 1);
         for (int i = 0; i < 2; ++i) {
             Bukkit.broadcast(Component.empty());
         }
-        Bukkit.broadcast(getPluginNameColored());
+        if (title != null) {
+            Bukkit.broadcast(title);
+        } else {
+            Bukkit.broadcast(getPluginNameColored());
+        }
         Bukkit.broadcast(message);
         for (int i = 0; i < 2; ++i) {
             Bukkit.broadcast(Component.empty());

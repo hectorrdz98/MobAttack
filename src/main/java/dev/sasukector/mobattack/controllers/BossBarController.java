@@ -11,6 +11,9 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class BossBarController {
 
     private static BossBarController instance = null;
@@ -48,7 +51,7 @@ public class BossBarController {
         }
     }
 
-    public void createTimerBossBar(int time) {
+    public void createTimerBossBar(int time, String redirectMethod) {
         this.remainingTime = time;
         currentBossBar.setColor(BarColor.YELLOW);
         currentBossBar.setStyle(BarStyle.SEGMENTED_10);
@@ -62,8 +65,13 @@ public class BossBarController {
                 currentBossBar.setTitle("Preparación: §e" + getTimer());
                 currentBossBar.setProgress(remainingTime / (double) time);
                 if (remainingTime <= 0) {
-                    GameController.getInstance().gameStartedEvent();
-                } else if (remainingTime <= 10 || remainingTime % 60 == 0) {
+                    try {
+                        Method method = GameController.getInstance().getClass().getDeclaredMethod(redirectMethod);
+                        method.invoke(GameController.getInstance());
+                    } catch (Exception e) {
+                        Bukkit.getLogger().info("§cCan't execute redirect method of createTimerBossBar()§r");
+                    }
+                } else if (remainingTime <= 5 || remainingTime % 60 == 0) {
                     ServerUtilities.playBroadcastSound("minecraft:block.note_block.xylophone", 1, 1);
                 }
             }

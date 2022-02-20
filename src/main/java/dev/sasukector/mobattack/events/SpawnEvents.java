@@ -117,6 +117,8 @@ public class SpawnEvents implements Listener {
             event.setCancelled(true);
         } else if (event.getEntity() instanceof Player player && TeamsController.getInstance().isEliminated(player)) {
             event.setCancelled(true);
+        } else if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
+            event.setCancelled(true);
         }
     }
 
