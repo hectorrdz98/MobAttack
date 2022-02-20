@@ -133,6 +133,10 @@ public class GameCommand implements CommandExecutor, TabExecutor {
                             player.getInventory().setItem(22, new ItemStack(Material.SHIELD));
                             player.getInventory().setItem(31, new ItemStack(Material.SHIELD));
 
+                            player.getInventory().setItem(14, new ItemStack(Material.EXPERIENCE_BOTTLE, 64));
+                            player.getInventory().setItem(23, new ItemStack(Material.EXPERIENCE_BOTTLE, 64));
+                            player.getInventory().setItem(32, new ItemStack(Material.EXPERIENCE_BOTTLE, 64));
+
                             player.updateInventory();
                         }
                     }
