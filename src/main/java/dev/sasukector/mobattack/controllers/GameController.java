@@ -102,6 +102,11 @@ public class GameController {
                                 "Tienes <bold><color:#FB8500>10 minutos</color></bold> para prepararte"
                 )
         );
+        BossBarController.getInstance().createTimerBossBar(60 * 2);
+    }
+
+    public void gameStartedEvent() {
+        BossBarController.getInstance().stopCurrentBossBar();
     }
 
 }

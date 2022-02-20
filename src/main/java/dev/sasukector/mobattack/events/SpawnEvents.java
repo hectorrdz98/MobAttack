@@ -2,6 +2,7 @@ package dev.sasukector.mobattack.events;
 
 import dev.sasukector.mobattack.MobAttack;
 import dev.sasukector.mobattack.controllers.BoardController;
+import dev.sasukector.mobattack.controllers.BossBarController;
 import dev.sasukector.mobattack.controllers.GameController;
 import dev.sasukector.mobattack.controllers.TeamsController;
 import dev.sasukector.mobattack.helpers.ServerUtilities;
@@ -47,6 +48,9 @@ public class SpawnEvents implements Listener {
             } else {
                 TeamsController.getInstance().getEliminatedTeam().addEntry(player.getName());
             }
+        }
+        if (BossBarController.getInstance().getCurrentBossBar().isVisible()) {
+            BossBarController.getInstance().getCurrentBossBar().addPlayer(player);
         }
         Bukkit.getScheduler().runTaskLater(MobAttack.getInstance(), () -> {
             String message = "Es momento de armarse";
