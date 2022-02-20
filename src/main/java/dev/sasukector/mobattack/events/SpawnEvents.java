@@ -118,9 +118,7 @@ public class SpawnEvents implements Listener {
     @EventHandler
     public void onEntityCombust(EntityCombustEvent event) {
         if (event.getEntity() instanceof Player) return;
-        if (event.getEntity() instanceof Zombie) {
-            event.setCancelled(true);
-        }
+        event.setCancelled(true);
     }
 
     @EventHandler

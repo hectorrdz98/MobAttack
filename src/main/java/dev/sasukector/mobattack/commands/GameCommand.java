@@ -90,6 +90,14 @@ public class GameCommand implements CommandExecutor, TabExecutor {
                             sword.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
                             player.getInventory().addItem(sword);
 
+                            ItemStack sword2 = new ItemStack(Material.NETHERITE_SWORD);
+                            sword2.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 5);
+                            sword2.addUnsafeEnchantment(Enchantment.SWEEPING_EDGE, 3);
+                            sword2.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
+                            sword2.addUnsafeEnchantment(Enchantment.MENDING, 1);
+                            sword2.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
+                            player.getInventory().setItem(27, sword2);
+
                             ItemStack bow = new ItemStack(Material.BOW);
                             bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 5);
                             bow.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
@@ -103,15 +111,27 @@ public class GameCommand implements CommandExecutor, TabExecutor {
                             bow2.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
                             bow2.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 1);
                             bow2.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
-                            player.getInventory().addItem(bow2);
+                            player.getInventory().setItem(28, bow2);
 
                             player.getInventory().addItem(new ItemStack(Material.TOTEM_OF_UNDYING));
                             player.getInventory().addItem(new ItemStack(Material.TOTEM_OF_UNDYING));
+                            player.getInventory().addItem(new ItemStack(Material.SHIELD));
                             player.getInventory().addItem(new ItemStack(Material.EXPERIENCE_BOTTLE, 64));
                             player.getInventory().addItem(new ItemStack(Material.WATER_BUCKET));
                             player.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE, 64));
                             player.getInventory().addItem(new ItemStack(Material.GOLDEN_CARROT, 64));
                             player.getInventory().addItem(new ItemStack(Material.ARROW, 64));
+
+                            player.getInventory().setItem(11, new ItemStack(Material.TOTEM_OF_UNDYING));
+                            player.getInventory().setItem(20, new ItemStack(Material.TOTEM_OF_UNDYING));
+                            player.getInventory().setItem(29, new ItemStack(Material.TOTEM_OF_UNDYING));
+                            player.getInventory().setItem(12, new ItemStack(Material.TOTEM_OF_UNDYING));
+                            player.getInventory().setItem(21, new ItemStack(Material.TOTEM_OF_UNDYING));
+                            player.getInventory().setItem(30, new ItemStack(Material.TOTEM_OF_UNDYING));
+
+                            player.getInventory().setItem(13, new ItemStack(Material.SHIELD));
+                            player.getInventory().setItem(22, new ItemStack(Material.SHIELD));
+                            player.getInventory().setItem(31, new ItemStack(Material.SHIELD));
 
                             player.updateInventory();
                         }

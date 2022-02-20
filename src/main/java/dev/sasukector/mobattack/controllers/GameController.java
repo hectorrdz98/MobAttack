@@ -206,6 +206,7 @@ public class GameController {
     }
 
     public void gameWinner() {
+        WaveController.getInstance().deleteWave();
         int alivePlayers = TeamsController.getInstance().getPlayingPlayers().size();
         String message;
         if (alivePlayers == 1) {
