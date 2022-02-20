@@ -140,6 +140,12 @@ public class SpawnEvents implements Listener {
                 !GameController.getInstance().isPvpEnabled()) {
                 event.setCancelled(true);
             }
+        } else if (event.getEntity() instanceof Player &&
+                event.getDamager() instanceof Projectile projectile && projectile.getShooter() instanceof Player) {
+            if (GameController.getInstance().getCurrentStatus() == GameController.Status.PLAYING &&
+                    !GameController.getInstance().isPvpEnabled()) {
+                event.setCancelled(true);
+            }
         }
         Entity entity = event.getEntity();
         if (entity.getScoreboardTags().contains(WaveController.getTagInmuneToArrows())) {

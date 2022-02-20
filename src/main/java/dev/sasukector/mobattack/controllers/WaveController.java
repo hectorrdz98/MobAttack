@@ -45,7 +45,7 @@ public class WaveController {
     }
 
     public WaveController() {
-        this.maxWaves = 7;
+        this.maxWaves = 8;
         this.maxEntities = 0;
         this.waveEntities = new ArrayList<>();
     }
@@ -120,6 +120,10 @@ public class WaveController {
                 case 7 -> {
                     this.generateWave7(overworld);
                     waveTitle = "¿Pum pum? Cuidado...";
+                }
+                case 8 -> {
+                    this.generateWave8(overworld);
+                    waveTitle = "¿C-conter?";
                 }
             }
         }
@@ -561,6 +565,44 @@ public class WaveController {
             Creeper creeper = this.summonCreeper("Pum pum", world, this.getRandomLocation(world), 40f, 0.5f);
             this.waveEntities.add(creeper);
             this.maxEntities++;
+        }
+    }
+
+    public void generateWave8(World world) {
+        this.currentWaveType = WaveType.NORMAL;
+        this.maxEntities = 0;
+        for (int i = 0; i < 50; ++i) {
+            Creeper creeper = this.summonCreeper("Pum pum", world, this.getRandomLocation(world), 40f, 0.5f);
+            this.waveEntities.add(creeper);
+            this.maxEntities++;
+        }
+        for (int i = 0; i < 50; ++i) {
+            Spider spider = (Spider) world.spawnEntity(this.getRandomLocation(world), EntityType.SPIDER);
+            this.waveEntities.add(spider);
+            this.maxEntities++;
+            spider.customName(Component.text("Arañita", TextColor.color(0xDAF59B)));
+            this.basicEntityConfiguration(spider);
+            Objects.requireNonNull(spider.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(40f);
+            spider.setHealth(40f);
+            spider.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 999999, 1));
+            spider.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 1));
+            spider.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999, 4));
+            spider.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 4));
+        }
+        for (int i = 0; i < 100; ++i) {
+            Zombie zombie = (Zombie) world.spawnEntity(this.getRandomLocation(world), EntityType.ZOMBIE);
+            this.waveEntities.add(zombie);
+            this.maxEntities++;
+            zombie.customName(Component.text("Conter", TextColor.color(0x98F5E1)));
+            this.basicEntityConfiguration(zombie);
+            zombie.setAdult();
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(40f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.4f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(10);
+            zombie.setHealth(40f);
+            ItemStack hand = new ItemStack(Material.NETHERITE_SWORD);
+            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
+            zombie.getEquipment().setItemInMainHand(hand);
         }
     }
 
