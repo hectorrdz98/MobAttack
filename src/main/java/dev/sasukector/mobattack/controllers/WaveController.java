@@ -347,7 +347,8 @@ public class WaveController {
         boss.getEquipment().setItemInMainHand(sword);
 
         ItemStack bow = new ItemStack(Material.BOW);
-        bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 4);
+        bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 6);
+        bow.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 3);
         ItemMeta bowMeta = bow.getItemMeta();
         bowMeta.setUnbreakable(true);
         bow.setItemMeta(bowMeta);
@@ -360,7 +361,7 @@ public class WaveController {
                 } else {
                     if (GameController.getInstance().getCurrentStatus() == GameController.Status.PLAYING) {
                         if (random.nextFloat() >= 0.3) {
-                            if (random.nextFloat() >= 0.6) {
+                            if (random.nextFloat() >= 0.5) {
                                 Player player = TeamsController.getInstance().getPlayingPlayers()
                                         .get(random.nextInt(TeamsController.getInstance().getPlayingPlayers().size()));
                                 world.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);

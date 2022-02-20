@@ -151,7 +151,9 @@ public class GameController {
 
     public void dropPlayer(Player player) {
         for (ItemStack itemStack : player.getInventory()) {
-            player.getWorld().dropItem(player.getLocation(), itemStack);
+            if (itemStack != null) {
+                player.getWorld().dropItem(player.getLocation(), itemStack);
+            }
         }
     }
 
