@@ -122,7 +122,7 @@ public class GameController {
                                 "Tienes <bold><color:#FB8500>10 minutos</color></bold> para prepararte..."
                 )
         );
-        BossBarController.getInstance().createTimerBossBar(60, "gameWaitingRound");
+        BossBarController.getInstance().createTimerBossBar(60, "gameWaitingRound", "Equipando");
     }
 
     public void gameWaitingRound() {
@@ -143,7 +143,7 @@ public class GameController {
                         "Alista tu inventario, en <bold><color:#FB8500>30 segundos</color></bold> llegarán los mobs..."
                 )
         );
-        BossBarController.getInstance().createTimerBossBar(30, "gameStartingRound");
+        BossBarController.getInstance().createTimerBossBar(30, "gameStartingRound", "Iniciando");
     }
 
     public void gameStartingRound() {
@@ -155,6 +155,23 @@ public class GameController {
                 Component.empty()
         );
         ServerUtilities.playBroadcastSound("minecraft:music.effects.board", 1, 1);
+    }
+
+    public void gamePausingRound() {
+        ServerUtilities.sendBroadcastTitle(
+                Component.text("Ha terminado", TextColor.color(0x0096C7)),
+                Component.text("la ronda...", TextColor.color(0x48CAE4))
+        );
+        ServerUtilities.sendBroadcastAnnounce(
+                ServerUtilities.getMiniMessage().parse(
+                        "<bold><gradient:#5C4D7D:#B7094C>Oleada #" + this.currentRound + " completada</gradient></bold>"
+                ),
+                ServerUtilities.getMiniMessage().parse(
+                        "¡Felicidades! Has completado la ronda, tienes <bold><color:#FB8500>15 segundos</color></bold> " +
+                                "para agarrar lo que ocupes del suelo, en lo que se prepara la siguiente ronda."
+                )
+        );
+        BossBarController.getInstance().createTimerBossBar(15, "gameWaitingRound", "Terminando");
     }
 
 }

@@ -2,6 +2,7 @@ package dev.sasukector.mobattack.commands;
 
 import dev.sasukector.mobattack.controllers.GameController;
 import dev.sasukector.mobattack.helpers.ServerUtilities;
+import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,17 +25,40 @@ public class GameCommand implements CommandExecutor, TabExecutor {
                     switch (option) {
                         case "prepare" -> {
                             player.playSound(player.getLocation(), "minecraft:block.note_block.bell", 1, 1);
-                            ServerUtilities.sendServerMessage(player, ServerUtilities.getMiniMessage().parse(
-                                    "El estatus del juego ahora es: <bold><color:#2A9D8F>PREPARANDO</color></bold>"
-                            ));
+                            ServerUtilities.sendServerMessage(player, "Se ha iniciado la preparación de equipamiento");
                             GameController.getInstance().prepareEvent();
                         }
                         case "lobby" -> {
                             player.playSound(player.getLocation(), "minecraft:block.note_block.bell", 1, 1);
-                            ServerUtilities.sendServerMessage(player, ServerUtilities.getMiniMessage().parse(
-                                    "El estatus del juego ahora es: <bold><color:#2A9D8F>LOBBY</color></bold>"
-                            ));
+                            ServerUtilities.sendServerMessage(player, "Se ha regresado al lobby");
                             GameController.getInstance().returnLobby();
+                        }
+                        case "start" -> {
+                            player.playSound(player.getLocation(), "minecraft:block.note_block.bell", 1, 1);
+                            ServerUtilities.sendServerMessage(player, "Se iniciado la ronda");
+                            GameController.getInstance().gameWaitingRound();
+                        }
+                        case "pause" -> {
+                            player.playSound(player.getLocation(), "minecraft:block.note_block.bell", 1, 1);
+                            ServerUtilities.sendServerMessage(player, "Se ha pausado el juego");
+                            GameController.getInstance().gamePausingRound();
+                        }
+                        case "round" -> {
+                            if (args.length > 1) {
+                                String roundStr = args[1];
+                                if (NumberUtils.isNumber(roundStr)) {
+                                    GameController.getInstance().setCurrentRound(Integer.parseInt(roundStr));
+                                    player.playSound(player.getLocation(), "minecraft:block.note_block.bell", 1, 1);
+                                    ServerUtilities.sendServerMessage(player, ServerUtilities.getMiniMessage().parse(
+                                            "Se estableció la ronda como: <bold><color:#2A9D8F>" +
+                                                    GameController.getInstance().getCurrentRound() + "</color></bold>"
+                                    ));
+                                } else {
+                                    ServerUtilities.sendServerMessage(player, "§cIndica un número válido");
+                                }
+                            } else {
+                                ServerUtilities.sendServerMessage(player, "§cIndica un número de ronda");
+                            }
                         }
                     }
                 } else {

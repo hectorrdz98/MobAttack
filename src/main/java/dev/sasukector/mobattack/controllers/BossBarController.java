@@ -51,7 +51,7 @@ public class BossBarController {
         }
     }
 
-    public void createTimerBossBar(int time, String redirectMethod) {
+    public void createTimerBossBar(int time, String redirectMethod, String title) {
         this.remainingTime = time;
         currentBossBar.setColor(BarColor.YELLOW);
         currentBossBar.setStyle(BarStyle.SEGMENTED_10);
@@ -62,7 +62,7 @@ public class BossBarController {
             @Override
             public void run() {
                 remainingTime--;
-                currentBossBar.setTitle("Preparación: §e" + getTimer());
+                currentBossBar.setTitle(title + ": §e" + getTimer());
                 currentBossBar.setProgress(remainingTime / (double) time);
                 if (remainingTime <= 0) {
                     try {
