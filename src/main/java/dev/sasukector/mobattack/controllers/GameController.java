@@ -237,7 +237,7 @@ public class GameController {
                 )
         );
         BossBarController.getInstance().createTimerBossBar(
-                60,
+                60 * 10,
                 "gameWaitingRound",
                 "Equipando",
                 BarColor.YELLOW
