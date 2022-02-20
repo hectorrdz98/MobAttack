@@ -9,6 +9,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
@@ -46,6 +47,12 @@ public class GameController {
             this.spectatorAreas.add(new Location(overworld, 8, 30, 66));
             this.lootingArea = new Location(overworld, 108, 5, 8);
             this.arenaArea = new Location(overworld, 45, 5, 8);
+        }
+    }
+
+    public void dropPlayer(Player player) {
+        for (ItemStack itemStack : player.getInventory()) {
+            player.getWorld().dropItem(player.getLocation(), itemStack);
         }
     }
 

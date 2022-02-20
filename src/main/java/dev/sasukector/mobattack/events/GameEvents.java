@@ -50,6 +50,7 @@ public class GameEvents implements Listener {
                     Component.text("Has sido", TextColor.color(0xB7094C)),
                     Component.text("eliminado...", TextColor.color(0x5C4D7D))
             ));
+            GameController.getInstance().dropPlayer(player);
             TeamsController.getInstance().getEliminatedTeam().addEntry(player.getName());
             if (TeamsController.getInstance().getPlayingPlayers().size() <= 1) {
                 GameController.getInstance().gameWinner();

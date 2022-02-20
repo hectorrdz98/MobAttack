@@ -87,6 +87,11 @@ public class SpawnEvents implements Listener {
                     "<bold><color:#F94144>" + player.getName() +
                             "</color></bold> <color:#F94144>ha abandonado la partida</color>"
             ));
+            GameController.getInstance().dropPlayer(player);
+            TeamsController.getInstance().getEliminatedTeam().addEntry(player.getName());
+            if (TeamsController.getInstance().getPlayingPlayers().size() <= 1) {
+                GameController.getInstance().gameWinner();
+            }
         }
     }
 
