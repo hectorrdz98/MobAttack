@@ -112,14 +112,14 @@ public class SpawnEvents implements Listener {
             event.setCancelled(true);
         } else if (event.getEntity() instanceof Player player && TeamsController.getInstance().isEliminated(player)) {
             event.setCancelled(true);
-        } else if (!(event.getEntity() instanceof Player)) {
-            if (event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK ||
-                    event.getCause() == EntityDamageEvent.DamageCause.FIRE) {
-                Entity entity = event.getEntity();
-                event.setCancelled(true);
-                entity.setVisualFire(false);
-                entity.setFireTicks(0);
-            }
+        }
+    }
+
+    @EventHandler
+    public void onEntityCombust(EntityCombustEvent event) {
+        if (event.getEntity() instanceof Player) return;
+        if (event.getEntity() instanceof Zombie) {
+            event.setCancelled(true);
         }
     }
 
