@@ -86,10 +86,10 @@ public class GameEvents implements Listener {
 
     @EventHandler
     public void onEntityRemove(EntityRemoveFromWorldEvent event) {
-        Entity entity = event.getEntity();
-        if (WaveController.getInstance().getWaveEntities().contains(entity)) {
-            WaveController.getInstance().getWaveEntities().remove(entity);
-            GameController.getInstance().checkPossibleWaveWin();
+        if (event.getEntity() instanceof LivingEntity livingEntity) {
+            if (WaveController.getInstance().getWaveEntities().remove(livingEntity)) {
+                GameController.getInstance().checkPossibleWaveWin();
+            }
         }
     }
 
