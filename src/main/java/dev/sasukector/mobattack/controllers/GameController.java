@@ -200,6 +200,8 @@ public class GameController {
 
     public void returnLobby() {
         BossBarController.getInstance().stopCurrentBossBar();
+        WaveController.getInstance().deleteWave();
+        WaveController.getInstance().deleteItemsOnGround();
         this.currentRound = 0;
         this.currentStatus = Status.LOBBY;
         this.pvpEnabled = false;
