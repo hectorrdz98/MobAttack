@@ -7,6 +7,7 @@ import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.*;
+import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Team;
 
@@ -52,6 +53,7 @@ public class GameController {
         player.setGameMode(GameMode.SURVIVAL);
         player.setHealth(20);
         player.setFoodLevel(20);
+        player.setSaturation(10);
         player.setExp(0);
         player.setLevel(0);
         player.setArrowsInBody(0);
@@ -87,6 +89,7 @@ public class GameController {
     }
 
     public void returnLobby() {
+        BossBarController.getInstance().stopCurrentBossBar();
         this.currentRound = 0;
         this.currentStatus = Status.LOBBY;
         ServerUtilities.sendBroadcastTitle(
@@ -122,11 +125,15 @@ public class GameController {
                                 "Tienes <bold><color:#FB8500>10 minutos</color></bold> para prepararte..."
                 )
         );
-        BossBarController.getInstance().createTimerBossBar(60, "gameWaitingRound", "Equipando");
+        BossBarController.getInstance().createTimerBossBar(
+                60,
+                "gameWaitingRound",
+                "Equipando",
+                BarColor.YELLOW
+        );
     }
 
     public void gameWaitingRound() {
-        BossBarController.getInstance().stopCurrentBossBar();
         this.currentRound++;
         this.currentStatus = Status.WAITING;
         this.buildWall(Material.BROWN_STAINED_GLASS);
@@ -143,7 +150,12 @@ public class GameController {
                         "Alista tu inventario, en <bold><color:#FB8500>30 segundos</color></bold> llegarán los mobs..."
                 )
         );
-        BossBarController.getInstance().createTimerBossBar(30, "gameStartingRound", "Iniciando");
+        BossBarController.getInstance().createTimerBossBar(
+                30,
+                "gameStartingRound",
+                "Iniciando ronda",
+                BarColor.YELLOW
+        );
     }
 
     public void gameStartingRound() {
@@ -154,7 +166,7 @@ public class GameController {
                 Component.text("Sobrevive...", TextColor.color(0x0096C7)),
                 Component.empty()
         );
-        ServerUtilities.playBroadcastSound("minecraft:music.effects.board", 1, 1);
+        ServerUtilities.playBroadcastSound("minecraft:music.effects.item", 1, 1);
     }
 
     public void gamePausingRound() {
@@ -167,11 +179,38 @@ public class GameController {
                         "<bold><gradient:#5C4D7D:#B7094C>Oleada #" + this.currentRound + " completada</gradient></bold>"
                 ),
                 ServerUtilities.getMiniMessage().parse(
-                        "¡Felicidades! Has completado la ronda, tienes <bold><color:#FB8500>15 segundos</color></bold> " +
+                        "¡Felicidades! Has completado la ronda, tienes <bold><color:#FB8500>30 segundos</color></bold> " +
                                 "para agarrar lo que ocupes del suelo, en lo que se prepara la siguiente ronda."
                 )
         );
-        BossBarController.getInstance().createTimerBossBar(15, "gameWaitingRound", "Terminando");
+        BossBarController.getInstance().createTimerBossBar(
+                30,
+                "gameWaitingRound",
+                "Terminando ronda",
+                BarColor.BLUE
+        );
+    }
+
+    public void gameWinner() {
+        int alivePlayers = TeamsController.getInstance().getPlayingPlayers().size();
+        String message;
+        if (alivePlayers == 1) {
+            Player player = TeamsController.getInstance().getPlayingPlayers().get(0);
+            message = "¡Felicidades <bold><color:#FB8500>" + player.getName() + "</color></bold> has demostrado ser mejor " +
+                    "que la bola de novatos que murieron ¡Buen trabajo!";
+        } else if (alivePlayers <= 0) {
+            message = "¿WTF? ¿No sobrevivió nadie...? Que lamentable... Ni modo, tocó acabar la partida";
+        } else {
+            message = "¿Enserio sobrevivió más de una persona...? Rayos... No fuí suficiente...";
+        }
+        ServerUtilities.playBroadcastSound("minecraft:music.effects.board", 1, 1);
+        ServerUtilities.sendBroadcastAnnounce(null, ServerUtilities.getMiniMessage().parse(message));
+        BossBarController.getInstance().createTimerBossBar(
+                30,
+                "returnLobby",
+                "Finalizando partida",
+                BarColor.RED
+        );
     }
 
 }

@@ -11,7 +11,6 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class BossBarController {
@@ -51,9 +50,10 @@ public class BossBarController {
         }
     }
 
-    public void createTimerBossBar(int time, String redirectMethod, String title) {
+    public void createTimerBossBar(int time, String redirectMethod, String title, BarColor color) {
+        this.stopCurrentBossBar();
         this.remainingTime = time;
-        currentBossBar.setColor(BarColor.YELLOW);
+        currentBossBar.setColor(color);
         currentBossBar.setStyle(BarStyle.SEGMENTED_10);
         currentBossBar.setProgress(1);
         currentBossBar.setVisible(true);

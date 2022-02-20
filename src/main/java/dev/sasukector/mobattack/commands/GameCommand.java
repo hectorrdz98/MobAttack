@@ -23,26 +23,11 @@ public class GameCommand implements CommandExecutor, TabExecutor {
                 String option = args[0];
                 if (validOptions(player).contains(option)) {
                     switch (option) {
-                        case "prepare" -> {
-                            player.playSound(player.getLocation(), "minecraft:block.note_block.bell", 1, 1);
-                            ServerUtilities.sendServerMessage(player, "Se ha iniciado la preparación de equipamiento");
-                            GameController.getInstance().prepareEvent();
-                        }
-                        case "lobby" -> {
-                            player.playSound(player.getLocation(), "minecraft:block.note_block.bell", 1, 1);
-                            ServerUtilities.sendServerMessage(player, "Se ha regresado al lobby");
-                            GameController.getInstance().returnLobby();
-                        }
-                        case "start" -> {
-                            player.playSound(player.getLocation(), "minecraft:block.note_block.bell", 1, 1);
-                            ServerUtilities.sendServerMessage(player, "Se iniciado la ronda");
-                            GameController.getInstance().gameWaitingRound();
-                        }
-                        case "pause" -> {
-                            player.playSound(player.getLocation(), "minecraft:block.note_block.bell", 1, 1);
-                            ServerUtilities.sendServerMessage(player, "Se ha pausado el juego");
-                            GameController.getInstance().gamePausingRound();
-                        }
+                        case "prepare" -> GameController.getInstance().prepareEvent();
+                        case "lobby" -> GameController.getInstance().returnLobby();
+                        case "start" -> GameController.getInstance().gameWaitingRound();
+                        case "pause" -> GameController.getInstance().gamePausingRound();
+                        case "winner" -> GameController.getInstance().gameWinner();
                         case "round" -> {
                             if (args.length > 1) {
                                 String roundStr = args[1];
