@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Team;
@@ -48,6 +49,104 @@ public class GameController {
             this.lootingArea = new Location(overworld, 108, 5, 8);
             this.arenaArea = new Location(overworld, 45, 5, 8);
         }
+    }
+
+    public void givePlayerKit(Player player) {
+        player.getInventory().clear();
+
+        ItemStack helmet = new ItemStack(Material.NETHERITE_HELMET);
+        helmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        helmet.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
+        helmet.addUnsafeEnchantment(Enchantment.MENDING, 1);
+        helmet.addUnsafeEnchantment(Enchantment.OXYGEN, 3);
+        helmet.addUnsafeEnchantment(Enchantment.WATER_WORKER, 1);
+        player.getInventory().setHelmet(helmet);
+
+        ItemStack chestplate = new ItemStack(Material.NETHERITE_CHESTPLATE);
+        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        chestplate.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
+        chestplate.addUnsafeEnchantment(Enchantment.MENDING, 1);
+        player.getInventory().setChestplate(chestplate);
+
+        ItemStack leggings = new ItemStack(Material.NETHERITE_LEGGINGS);
+        leggings.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        leggings.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
+        leggings.addUnsafeEnchantment(Enchantment.MENDING, 1);
+        player.getInventory().setLeggings(leggings);
+
+        ItemStack boots = new ItemStack(Material.NETHERITE_BOOTS);
+        boots.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        boots.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
+        boots.addUnsafeEnchantment(Enchantment.MENDING, 1);
+        boots.addUnsafeEnchantment(Enchantment.SOUL_SPEED, 3);
+        boots.addUnsafeEnchantment(Enchantment.DEPTH_STRIDER, 3);
+        boots.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 4);
+        player.getInventory().setBoots(boots);
+
+        player.getInventory().setItemInOffHand(new ItemStack(Material.TOTEM_OF_UNDYING));
+
+        ItemStack sword = new ItemStack(Material.NETHERITE_SWORD);
+        sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
+        sword.addUnsafeEnchantment(Enchantment.SWEEPING_EDGE, 3);
+        sword.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
+        sword.addUnsafeEnchantment(Enchantment.MENDING, 1);
+        sword.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
+        player.getInventory().addItem(sword);
+
+        ItemStack sword2 = new ItemStack(Material.NETHERITE_SWORD);
+        sword2.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 5);
+        sword2.addUnsafeEnchantment(Enchantment.SWEEPING_EDGE, 3);
+        sword2.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
+        sword2.addUnsafeEnchantment(Enchantment.MENDING, 1);
+        sword2.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
+        player.getInventory().setItem(27, sword2);
+
+        ItemStack bow = new ItemStack(Material.BOW);
+        bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 5);
+        bow.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
+        bow.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 1);
+        bow.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
+        player.getInventory().addItem(bow);
+
+        ItemStack bow2 = new ItemStack(Material.BOW);
+        bow2.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 5);
+        bow2.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 2);
+        bow2.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
+        bow2.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 1);
+        bow2.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
+        player.getInventory().setItem(28, bow2);
+
+        player.getInventory().addItem(new ItemStack(Material.TOTEM_OF_UNDYING));
+        player.getInventory().addItem(new ItemStack(Material.TOTEM_OF_UNDYING));
+        player.getInventory().addItem(new ItemStack(Material.SHIELD));
+        player.getInventory().addItem(new ItemStack(Material.EXPERIENCE_BOTTLE, 64));
+        player.getInventory().addItem(new ItemStack(Material.WATER_BUCKET));
+        player.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE, 64));
+        player.getInventory().addItem(new ItemStack(Material.GOLDEN_CARROT, 64));
+        player.getInventory().addItem(new ItemStack(Material.ARROW, 64));
+
+        player.getInventory().setItem(11, new ItemStack(Material.TOTEM_OF_UNDYING));
+        player.getInventory().setItem(20, new ItemStack(Material.TOTEM_OF_UNDYING));
+        player.getInventory().setItem(29, new ItemStack(Material.TOTEM_OF_UNDYING));
+        player.getInventory().setItem(12, new ItemStack(Material.TOTEM_OF_UNDYING));
+        player.getInventory().setItem(21, new ItemStack(Material.TOTEM_OF_UNDYING));
+        player.getInventory().setItem(30, new ItemStack(Material.TOTEM_OF_UNDYING));
+
+        player.getInventory().setItem(13, new ItemStack(Material.SHIELD));
+        player.getInventory().setItem(22, new ItemStack(Material.SHIELD));
+        player.getInventory().setItem(31, new ItemStack(Material.SHIELD));
+
+        player.getInventory().setItem(14, new ItemStack(Material.EXPERIENCE_BOTTLE, 64));
+        player.getInventory().setItem(23, new ItemStack(Material.EXPERIENCE_BOTTLE, 64));
+        player.getInventory().setItem(32, new ItemStack(Material.EXPERIENCE_BOTTLE, 64));
+
+        player.getInventory().setItem(15, new ItemStack(Material.ENDER_PEARL, 16));
+        player.getInventory().setItem(24, new ItemStack(Material.ENDER_PEARL, 16));
+
+        player.getInventory().setItem(33, new ItemStack(Material.WATER_BUCKET));
+        player.getInventory().setItem(35, new ItemStack(Material.GOLDEN_CARROT, 64));
+
+        player.updateInventory();
     }
 
     public void dropPlayer(Player player) {
