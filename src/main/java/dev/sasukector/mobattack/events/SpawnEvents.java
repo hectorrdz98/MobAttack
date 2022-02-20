@@ -1,10 +1,7 @@
 package dev.sasukector.mobattack.events;
 
 import dev.sasukector.mobattack.MobAttack;
-import dev.sasukector.mobattack.controllers.BoardController;
-import dev.sasukector.mobattack.controllers.BossBarController;
-import dev.sasukector.mobattack.controllers.GameController;
-import dev.sasukector.mobattack.controllers.TeamsController;
+import dev.sasukector.mobattack.controllers.*;
 import dev.sasukector.mobattack.helpers.ServerUtilities;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -12,6 +9,7 @@ import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -113,12 +111,21 @@ public class SpawnEvents implements Listener {
         } else if (event.getEntity() instanceof Player player && TeamsController.getInstance().isEliminated(player)) {
             event.setCancelled(true);
         }
+        Entity entity = event.getEntity();
+        if (entity.getScoreboardTags().contains(WaveController.getTagInmuneToExplosions())) {
+            if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION ||
+                    event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION) {
+                event.setCancelled(true);
+            }
+        }
     }
 
     @EventHandler
     public void onEntityCombust(EntityCombustEvent event) {
         if (event.getEntity() instanceof Player) return;
-        event.setCancelled(true);
+        if (event.getEntity() instanceof LivingEntity) {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler
@@ -129,6 +136,14 @@ public class SpawnEvents implements Listener {
             event.setCancelled(true);
         } else if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
             event.setCancelled(true);
+        }
+        Entity entity = event.getEntity();
+        if (entity.getScoreboardTags().contains(WaveController.getTagInmuneToArrows())) {
+            if (event.getDamager() instanceof Projectile) {
+                event.setCancelled(true);
+                entity.getWorld().spawnParticle(Particle.WARPED_SPORE, entity.getLocation(), 40);
+                entity.getWorld().playSound(entity.getLocation(), "minecraft:entity.fishing_bobber.splash", 1, 2f);
+            }
         }
     }
 

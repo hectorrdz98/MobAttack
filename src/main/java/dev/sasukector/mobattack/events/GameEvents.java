@@ -14,6 +14,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
@@ -89,6 +90,34 @@ public class GameEvents implements Listener {
         if (WaveController.getInstance().getWaveEntities().contains(entity)) {
             WaveController.getInstance().getWaveEntities().remove(entity);
             GameController.getInstance().checkPossibleWaveWin();
+        }
+    }
+
+    @EventHandler
+    public void entityExplode(EntityExplodeEvent event) {
+        if (event.getEntity() instanceof Creeper creeper) {
+            if (creeper.getScoreboardTags().contains(WaveController.getTagInmuneToExplosions())) {
+                event.setCancelled(true);
+                creeper.getWorld().spawnParticle(Particle.CRIMSON_SPORE, creeper.getLocation(), 50);
+                creeper.getWorld().spawnParticle(Particle.WARPED_SPORE, creeper.getLocation(), 50);
+                creeper.getWorld().spawnParticle(Particle.ELECTRIC_SPARK, creeper.getLocation(), 30);
+                creeper.getWorld().playSound(creeper.getLocation(), "minecraft:entity.generic.explode", 1f, 1f);
+                Creeper newCreeper = WaveController.getInstance().summonCreeper(
+                        creeper.getName(),
+                        creeper.getWorld(),
+                        creeper.getLocation(),
+                        40f,
+                        0.4f);
+                newCreeper.setHealth(creeper.getHealth());
+                newCreeper.customName(creeper.customName());
+                newCreeper.setPowered(creeper.isPowered());
+                newCreeper.addScoreboardTag(WaveController.getTagInmuneToArrows());
+                newCreeper.addScoreboardTag(WaveController.getTagInmuneToExplosions());
+                WaveController.getInstance().getWaveEntities().add(newCreeper);
+            } else {
+                creeper.getWorld().playSound(creeper.getLocation(), "minecraft:entity.phantom.hurt", 1f, 0.4f);
+                creeper.getWorld().strikeLightning(creeper.getLocation());
+            }
         }
     }
 

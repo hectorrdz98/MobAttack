@@ -30,6 +30,8 @@ public class WaveController {
     private final @Getter List<LivingEntity> waveEntities;
     private final Random random = new Random();
     private @Getter WaveType currentWaveType;
+    private static final @Getter String tagInmuneToExplosions = "inmuneToExplosions";
+    private static final @Getter String tagInmuneToArrows = "inmuneToArrows";
 
     public static WaveController getInstance() {
         if (instance == null) {
@@ -43,7 +45,7 @@ public class WaveController {
     }
 
     public WaveController() {
-        this.maxWaves = 5;
+        this.maxWaves = 7;
         this.maxEntities = 0;
         this.waveEntities = new ArrayList<>();
     }
@@ -107,6 +109,14 @@ public class WaveController {
                 case 5 -> {
                     this.generateWave5(overworld);
                     waveTitle = "El rey del nether";
+                }
+                case 6 -> {
+                    this.generateWave6(overworld);
+                    waveTitle = "Eternos";
+                }
+                case 7 -> {
+                    this.generateWave7(overworld);
+                    waveTitle = "¿Pum pum? Cuidado...";
                 }
             }
         }
@@ -448,6 +458,99 @@ public class WaveController {
         witherSkeleton.getEquipment().setLeggings(null);
         witherSkeleton.getEquipment().setBoots(null);
         return witherSkeleton;
+    }
+
+    public void generateWave6(World world) {
+        this.currentWaveType = WaveType.NORMAL;
+        this.maxEntities = 0;
+        for (int i = 0; i < 100; ++i) {
+            Creeper creeper = this.summonCreeper("Sustitos", world, this.getRandomLocation(world), 40f, 0.4f);
+            creeper.addScoreboardTag(tagInmuneToArrows);
+            creeper.addScoreboardTag(tagInmuneToExplosions);
+            this.waveEntities.add(creeper);
+            this.maxEntities++;
+        }
+    }
+
+    public Creeper summonCreeper(String name, World world, Location location, float maxHealth, float maxSpeed) {
+        Creeper creeper = (Creeper) world.spawnEntity(location, EntityType.CREEPER);
+        creeper.customName(Component.text(name, TextColor.color(0x98F5E1)));
+        this.basicEntityConfiguration(creeper);
+        Objects.requireNonNull(creeper.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(maxHealth);
+        Objects.requireNonNull(creeper.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(maxSpeed);
+        Objects.requireNonNull(creeper.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(5);
+        creeper.setHealth(maxHealth);
+        return creeper;
+    }
+
+    public void generateWave7(World world) {
+        this.currentWaveType = WaveType.NORMAL;
+        this.maxEntities = 0;
+        for (int i = 0; i < 50; ++i) {
+            Zombie zombie = (Zombie) world.spawnEntity(this.getRandomLocation(world), EntityType.ZOMBIE);
+            this.waveEntities.add(zombie);
+            this.maxEntities++;
+            zombie.customName(Component.text("Zomwhi", TextColor.color(0x98F5E1)));
+            this.basicEntityConfiguration(zombie);
+            zombie.setAdult();
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
+            zombie.getEquipment().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
+            zombie.getEquipment().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
+            zombie.getEquipment().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
+            zombie.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+            ItemStack hand = new ItemStack(Material.IRON_SWORD);
+            if (random.nextFloat() >= 0.6) {
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
+            } else if (random.nextFloat() >= 0.4) {
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
+            } else {
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
+            }
+            if (random.nextFloat() >= 0.6) {
+                hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
+            }
+            zombie.getEquipment().setItemInMainHand(hand);
+        }
+        for (int i = 0; i < 50; ++i) {
+            Skeleton skeleton = (Skeleton) world.spawnEntity(this.getRandomLocation(world), EntityType.SKELETON);
+            this.waveEntities.add(skeleton);
+            this.maxEntities++;
+            skeleton.customName(Component.text("Gorrito", TextColor.color(0x90DBF4)));
+            this.basicEntityConfiguration(skeleton);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(60f);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.4f);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(20);
+            skeleton.setHealth(60f);
+            skeleton.getEquipment().setHelmet(null);
+            skeleton.getEquipment().setChestplate(null);
+            skeleton.getEquipment().setLeggings(null);
+            skeleton.getEquipment().setBoots(null);
+            ItemStack hand = new ItemStack(Material.BOW);
+            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 2);
+            if (random.nextFloat() >= 0.7) {
+                hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 6);
+            } else {
+                if (random.nextFloat() >= 0.7) {
+                    hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 2);
+                }
+            }
+            if (random.nextFloat() >= 0.7) {
+                hand.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 1);
+            }
+            skeleton.getEquipment().setItemInMainHand(hand);
+        }
+        for (int i = 0; i < 25; ++i) {
+            Creeper creeper = this.summonCreeper("Sustitos", world, this.getRandomLocation(world), 40f, 0.4f);
+            creeper.addScoreboardTag(tagInmuneToExplosions);
+            creeper.addScoreboardTag(tagInmuneToArrows);
+            this.waveEntities.add(creeper);
+            this.maxEntities++;
+        }
+        for (int i = 0; i < 25; ++i) {
+            Creeper creeper = this.summonCreeper("Pum pum", world, this.getRandomLocation(world), 40f, 0.5f);
+            this.waveEntities.add(creeper);
+            this.maxEntities++;
+        }
     }
 
 }
