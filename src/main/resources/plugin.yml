@@ -18,3 +18,6 @@ commands:
   sit:
     description: Command to sit
     usage: /sit
+  game:
+    description: Command to manage the game
+    usage: /game [option] [subOption]

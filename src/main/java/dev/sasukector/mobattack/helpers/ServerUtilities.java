@@ -5,6 +5,7 @@ import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -38,6 +39,11 @@ public class ServerUtilities {
         return miniMessage.parse("<bold><gradient:#5C4D7D:#B7094C>La invasión</gradient></bold>");
     }
 
+    public static void sendBroadcastTitle(Component title, Component subtitle) {
+        Title titleToShow = Title.title(title, subtitle);
+        Bukkit.getOnlinePlayers().forEach(player -> player.showTitle(titleToShow));
+    }
+
     public static void sendServerMessage(Player player, String message) {
         player.sendMessage(getPluginNameColored()
                 .append(Component.text(" ▶ ", TextColor.color(0xC0C1C2)))
@@ -54,6 +60,17 @@ public class ServerUtilities {
         Bukkit.broadcast(getPluginNameColored()
                 .append(Component.text(" ▶ ", TextColor.color(0xC0C1C2)))
                 .append(message));
+    }
+
+    public static void sendBroadcastAnnounce(Component message) {
+        for (int i = 0; i < 2; ++i) {
+            Bukkit.broadcast(Component.empty());
+        }
+        Bukkit.broadcast(getPluginNameColored());
+        Bukkit.broadcast(message);
+        for (int i = 0; i < 2; ++i) {
+            Bukkit.broadcast(Component.empty());
+        }
     }
 
     public static void playBroadcastSound(String sound, float volume, float pitch) {

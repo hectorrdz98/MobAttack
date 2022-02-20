@@ -64,7 +64,7 @@ public class TeamsController {
         return players;
     }
 
-    public boolean isFinalist(Player player) {
+    public boolean isPlaying(Player player) {
         return this.getPlayingPlayers().contains(player);
     }
 

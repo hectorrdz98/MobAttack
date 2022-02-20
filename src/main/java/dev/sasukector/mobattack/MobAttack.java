@@ -35,6 +35,7 @@ public final class MobAttack extends JavaPlugin {
         Objects.requireNonNull(MobAttack.getInstance().getCommand("played")).setExecutor(new PlayedCommand());
         Objects.requireNonNull(MobAttack.getInstance().getCommand("inventory")).setExecutor(new InventoryCommand());
         Objects.requireNonNull(MobAttack.getInstance().getCommand("sit")).setExecutor(new SitCommand());
+        Objects.requireNonNull(MobAttack.getInstance().getCommand("game")).setExecutor(new GameCommand());
 
         // Start teams
         TeamsController.getInstance();
