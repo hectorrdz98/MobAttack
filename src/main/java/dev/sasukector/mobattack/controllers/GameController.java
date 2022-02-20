@@ -26,6 +26,7 @@ public class GameController {
     private @Getter Location arenaArea;
     private final Random random;
     private @Getter @Setter int currentRound;
+    private @Getter boolean pvpEnabled;
 
     public static GameController getInstance() {
         if (instance == null) {
@@ -40,6 +41,7 @@ public class GameController {
 
     public GameController() {
         this.currentRound = 0;
+        this.pvpEnabled = false;
         this.random = new Random();
         this.spectatorAreas = new ArrayList<>();
         World overworld = ServerUtilities.getWorld("overworld");
@@ -200,6 +202,7 @@ public class GameController {
         BossBarController.getInstance().stopCurrentBossBar();
         this.currentRound = 0;
         this.currentStatus = Status.LOBBY;
+        this.pvpEnabled = false;
         ServerUtilities.sendBroadcastTitle(
                 Component.text("Ha terminado", TextColor.color(0x0096C7)),
                 Component.text("la partida", TextColor.color(0x48CAE4))
@@ -244,6 +247,7 @@ public class GameController {
     public void gameWaitingRound() {
         this.currentRound++;
         this.currentStatus = Status.WAITING;
+        this.pvpEnabled = false;
         this.buildWall(Material.BROWN_STAINED_GLASS);
         this.teleportAllPlayingPlayers(this.arenaArea);
         WaveController.getInstance().deleteItemsOnGround();
@@ -318,30 +322,59 @@ public class GameController {
         this.currentStatus = Status.WAITING;
         WaveController.getInstance().deleteWave();
         int alivePlayers = TeamsController.getInstance().getPlayingPlayers().size();
-        String message;
-        if (alivePlayers == 1) {
-            Player player = TeamsController.getInstance().getPlayingPlayers().get(0);
-            message = "¡Felicidades <bold><color:#FB8500>" + player.getName() + "</color></bold> has demostrado ser mejor " +
-                    "que la bola de novatos que murieron ¡Buen trabajo!";
-        } else if (alivePlayers <= 0) {
-            message = "¿WTF? ¿No sobrevivió nadie...? Que lamentable... Ni modo, tocó acabar la partida";
+        if (alivePlayers > 1) {
+            ServerUtilities.playBroadcastSound("minecraft:music.effects.board", 1, 1);
+            ServerUtilities.sendBroadcastAnnounce(
+                    ServerUtilities.getMiniMessage().parse(
+                            "<bold><gradient:#5C4D7D:#B7094C>Duelo a muerte</gradient></bold>"
+                    ),
+                    ServerUtilities.getMiniMessage().parse(
+                            "¡Felicidades! Ustedes sobrevivieron a las oleadas. Pero solo puede haber un ganador... " +
+                                    "En <bold><color:#FB8500>1 minuto</color></bold> tendrán un duelo a muerte hasta " +
+                                    "conseguir al ganador. Mucha suerte..."
+                    )
+            );
+            BossBarController.getInstance().createTimerBossBar(
+                    60,
+                    "gameLastPvP",
+                    "PvP iniciando",
+                    BarColor.PINK
+            );
         } else {
-            message = "¿Enserio sobrevivió más de una persona...? Rayos... No fuí suficiente...";
+            String message;
+            if (alivePlayers == 1) {
+                Player player = TeamsController.getInstance().getPlayingPlayers().get(0);
+                message = "¡Felicidades <bold><color:#FB8500>" + player.getName() + "</color></bold> has demostrado ser mejor " +
+                        "que la bola de novatos que murieron ¡Buen trabajo!";
+            } else {
+                message = "¿WTF? ¿No sobrevivió nadie...? Que lamentable... Ni modo, tocó acabar la partida";
+            }
+            ServerUtilities.playBroadcastSound("minecraft:music.effects.board", 1, 1);
+            ServerUtilities.sendBroadcastAnnounce(null, ServerUtilities.getMiniMessage().parse(message));
+            BossBarController.getInstance().createTimerBossBar(
+                    30,
+                    "returnLobby",
+                    "Finalizando partida",
+                    BarColor.RED
+            );
         }
-        ServerUtilities.playBroadcastSound("minecraft:music.effects.board", 1, 1);
-        ServerUtilities.sendBroadcastAnnounce(null, ServerUtilities.getMiniMessage().parse(message));
-        BossBarController.getInstance().createTimerBossBar(
-                30,
-                "returnLobby",
-                "Finalizando partida",
-                BarColor.RED
-        );
     }
 
     public void checkPossibleWaveWin() {
         if (WaveController.getInstance().getWaveEntities().size() == 0) {
             this.gamePausingRound();
         }
+    }
+
+    public void gameLastPvP() {
+        BossBarController.getInstance().stopCurrentBossBar();
+        this.pvpEnabled = true;
+        this.currentStatus = Status.PLAYING;
+        ServerUtilities.playBroadcastSound("minecraft:music.effects.board", 1, 1);
+        ServerUtilities.sendBroadcastTitle(
+                Component.text("PvP", TextColor.color(0x0096C7)),
+                Component.text("activado", TextColor.color(0x48CAE4))
+        );
     }
 
 }

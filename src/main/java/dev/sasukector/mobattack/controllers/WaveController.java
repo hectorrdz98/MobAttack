@@ -69,8 +69,11 @@ public class WaveController {
     }
 
     public void deleteWave() {
-        for (Entity entity : this.waveEntities) {
-            entity.remove();
+        List<LivingEntity> livingEntities = this.waveEntities.stream().toList();
+        for (LivingEntity livingEntity : livingEntities) {
+            try {
+                livingEntity.remove();
+            } catch (Exception ignored) {}
         }
         this.waveEntities.clear();
         World overworld = ServerUtilities.getWorld("overworld");

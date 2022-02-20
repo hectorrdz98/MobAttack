@@ -106,7 +106,8 @@ public class SpawnEvents implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
-        if (GameController.getInstance().getCurrentStatus() != GameController.Status.PLAYING) {
+        if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY ||
+                GameController.getInstance().getCurrentStatus() == GameController.Status.PREPARING) {
             event.setCancelled(true);
         } else if (event.getEntity() instanceof Player player && TeamsController.getInstance().isEliminated(player)) {
             event.setCancelled(true);
@@ -135,7 +136,10 @@ public class SpawnEvents implements Listener {
         } else if (event.getEntity() instanceof Player player && TeamsController.getInstance().isEliminated(player)) {
             event.setCancelled(true);
         } else if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
-            event.setCancelled(true);
+            if (GameController.getInstance().getCurrentStatus() == GameController.Status.PLAYING &&
+                !GameController.getInstance().isPvpEnabled()) {
+                event.setCancelled(true);
+            }
         }
         Entity entity = event.getEntity();
         if (entity.getScoreboardTags().contains(WaveController.getTagInmuneToArrows())) {

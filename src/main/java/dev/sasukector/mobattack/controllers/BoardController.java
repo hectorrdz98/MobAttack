@@ -58,6 +58,8 @@ public class BoardController {
             }
 
             lines.add("");
+            lines.add("Vida: §6" + Math.round(player.getHealth()) + " ❤");
+            lines.add("");
             lines.add("Jugando: §d" + TeamsController.getInstance().getPlayingPlayers().size());
             lines.add("Eliminados: §7" + TeamsController.getInstance().getEliminatedPlayers().size());
             lines.add("");
