@@ -95,7 +95,8 @@ public class GameEvents implements Listener {
 
     @EventHandler
     public void entityExplode(EntityExplodeEvent event) {
-        if (event.getEntity() instanceof Creeper creeper) {
+        if (event.getEntity() instanceof Creeper creeper &&
+                GameController.getInstance().getCurrentStatus() == GameController.Status.PLAYING) {
             if (creeper.getScoreboardTags().contains(WaveController.getTagInmuneToExplosions())) {
                 event.setCancelled(true);
                 creeper.getWorld().spawnParticle(Particle.CRIMSON_SPORE, creeper.getLocation(), 50);

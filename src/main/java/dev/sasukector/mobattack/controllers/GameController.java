@@ -315,6 +315,7 @@ public class GameController {
     }
 
     public void gameWinner() {
+        this.currentStatus = Status.WAITING;
         WaveController.getInstance().deleteWave();
         int alivePlayers = TeamsController.getInstance().getPlayingPlayers().size();
         String message;
