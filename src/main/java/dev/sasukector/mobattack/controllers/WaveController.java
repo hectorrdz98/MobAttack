@@ -45,7 +45,7 @@ public class WaveController {
     }
 
     public WaveController() {
-        this.maxWaves = 8;
+        this.maxWaves = 9;
         this.maxEntities = 0;
         this.waveEntities = new ArrayList<>();
     }
@@ -124,6 +124,10 @@ public class WaveController {
                 case 8 -> {
                     this.generateWave8(overworld);
                     waveTitle = "¿C-conter?";
+                }
+                case 9 -> {
+                    this.generateWave9(overworld);
+                    waveTitle = "La venganza";
                 }
             }
         }
@@ -603,6 +607,31 @@ public class WaveController {
             ItemStack hand = new ItemStack(Material.NETHERITE_SWORD);
             hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
             zombie.getEquipment().setItemInMainHand(hand);
+        }
+    }
+
+    public void generateWave9(World world) {
+        this.currentWaveType = WaveType.NORMAL;
+        this.maxEntities = 0;
+        for (int i = 0; i < 50; ++i) {
+            Evoker evoker = (Evoker) world.spawnEntity(this.getRandomLocation(world), EntityType.EVOKER);
+            this.waveEntities.add(evoker);
+            this.maxEntities++;
+            evoker.customName(Component.text("Capuchita", TextColor.color(0x808CF5)));
+            this.basicEntityConfiguration(evoker);
+            Objects.requireNonNull(evoker.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(40f);
+            evoker.setHealth(40f);
+            evoker.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 999999, 1));
+            evoker.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999, 4));
+        }
+        for (int i = 0; i < 25; ++i) {
+            Ravager ravager = (Ravager) world.spawnEntity(this.getRandomLocation(world), EntityType.RAVAGER);
+            this.waveEntities.add(ravager);
+            this.maxEntities++;
+            ravager.customName(Component.text("Guerrero Perdido", TextColor.color(0x808CF5)));
+            this.basicEntityConfiguration(ravager);
+            ravager.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 1));
+            ravager.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 1));
         }
     }
 
