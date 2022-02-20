@@ -12,17 +12,14 @@ import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -96,8 +93,10 @@ public class SpawnEvents implements Listener {
     @EventHandler
     public void onMobSpawn(EntitySpawnEvent event) {
         if (event.getEntity() instanceof LivingEntity) {
-            if (GameController.getInstance().getCurrentStatus() != GameController.Status.PLAYING) {
-                event.setCancelled(true);
+            if (GameController.getInstance().getCurrentStatus() == GameController.Status.LOBBY) {
+                if (!(event.getEntity() instanceof ArmorStand)) {
+                    event.setCancelled(true);
+                }
             }
         }
     }
@@ -108,6 +107,14 @@ public class SpawnEvents implements Listener {
             event.setCancelled(true);
         } else if (event.getEntity() instanceof Player player && TeamsController.getInstance().isEliminated(player)) {
             event.setCancelled(true);
+        } else if (!(event.getEntity() instanceof Player)) {
+            if (event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK ||
+                    event.getCause() == EntityDamageEvent.DamageCause.FIRE) {
+                Entity entity = event.getEntity();
+                event.setCancelled(true);
+                entity.setVisualFire(false);
+                entity.setFireTicks(0);
+            }
         }
     }
 
@@ -141,6 +148,16 @@ public class SpawnEvents implements Listener {
     public void onBlockPlace(BlockPlaceEvent event) {
         if (event.getPlayer().getGameMode() != GameMode.CREATIVE)
             event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onEntityExplosion(EntityExplodeEvent event) {
+        event.blockList().clear();
+    }
+
+    @EventHandler
+    public void onBlockExplosion(BlockExplodeEvent event) {
+        event.blockList().clear();
     }
 
     @EventHandler

@@ -82,4 +82,25 @@ public class BossBarController {
         return (this.remainingTime / 60) + ":" + String.format("%02d", (this.remainingTime % 60)) + " m";
     }
 
+    public void createWaveBossBar() {
+        this.stopCurrentBossBar();
+        currentBossBar.setColor(BarColor.YELLOW);
+        currentBossBar.setStyle(BarStyle.SOLID);
+        currentBossBar.setProgress(1);
+        currentBossBar.setVisible(true);
+        Bukkit.getOnlinePlayers().forEach(player -> currentBossBar.addPlayer(player));
+        this.taskID = new BukkitRunnable() {
+            @Override
+            public void run() {
+                currentBossBar.setTitle("Quedan §e" + WaveController.getInstance().getWaveEntities().size() + " enemigos");
+                int current = WaveController.getInstance().getWaveEntities().size();
+                if (current != 0) {
+                    currentBossBar.setProgress(current / (double) WaveController.getInstance().getMaxEntities());
+                } else {
+                    currentBossBar.setProgress(0);
+                }
+            }
+        }.runTaskTimer(MobAttack.getInstance(), 0L, 20L).getTaskId();
+    }
+
 }

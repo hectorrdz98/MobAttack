@@ -138,6 +138,8 @@ public class GameController {
         this.currentStatus = Status.WAITING;
         this.buildWall(Material.BROWN_STAINED_GLASS);
         this.teleportAllPlayingPlayers(this.arenaArea);
+        WaveController.getInstance().deleteItemsOnGround();
+        WaveController.getInstance().createWave();
         ServerUtilities.sendBroadcastTitle(
                 Component.text("Iniciando", TextColor.color(0x0096C7)),
                 Component.text("ronda...", TextColor.color(0x48CAE4))
@@ -159,7 +161,7 @@ public class GameController {
     }
 
     public void gameStartingRound() {
-        BossBarController.getInstance().stopCurrentBossBar();
+        BossBarController.getInstance().createWaveBossBar();
         this.currentStatus = Status.PLAYING;
         this.buildWall(Material.AIR);
         ServerUtilities.sendBroadcastTitle(
@@ -170,25 +172,30 @@ public class GameController {
     }
 
     public void gamePausingRound() {
-        ServerUtilities.sendBroadcastTitle(
-                Component.text("Ha terminado", TextColor.color(0x0096C7)),
-                Component.text("la ronda...", TextColor.color(0x48CAE4))
-        );
-        ServerUtilities.sendBroadcastAnnounce(
-                ServerUtilities.getMiniMessage().parse(
-                        "<bold><gradient:#5C4D7D:#B7094C>Oleada #" + this.currentRound + " completada</gradient></bold>"
-                ),
-                ServerUtilities.getMiniMessage().parse(
-                        "¡Felicidades! Has completado la ronda, tienes <bold><color:#FB8500>30 segundos</color></bold> " +
-                                "para agarrar lo que ocupes del suelo, en lo que se prepara la siguiente ronda."
-                )
-        );
-        BossBarController.getInstance().createTimerBossBar(
-                30,
-                "gameWaitingRound",
-                "Terminando ronda",
-                BarColor.BLUE
-        );
+        WaveController.getInstance().deleteWave();
+        if (WaveController.getInstance().getMaxWaves() > this.currentRound) {
+            ServerUtilities.sendBroadcastTitle(
+                    Component.text("Ha terminado", TextColor.color(0x0096C7)),
+                    Component.text("la ronda...", TextColor.color(0x48CAE4))
+            );
+            ServerUtilities.sendBroadcastAnnounce(
+                    ServerUtilities.getMiniMessage().parse(
+                            "<bold><gradient:#5C4D7D:#B7094C>Oleada #" + this.currentRound + " completada</gradient></bold>"
+                    ),
+                    ServerUtilities.getMiniMessage().parse(
+                            "¡Felicidades! Has completado la ronda, tienes <bold><color:#FB8500>30 segundos</color></bold> " +
+                                    "para agarrar lo que ocupes del suelo, en lo que se prepara la siguiente ronda."
+                    )
+            );
+            BossBarController.getInstance().createTimerBossBar(
+                    30,
+                    "gameWaitingRound",
+                    "Terminando ronda",
+                    BarColor.BLUE
+            );
+        } else {
+            this.gameWinner();
+        }
     }
 
     public void gameWinner() {
@@ -211,6 +218,14 @@ public class GameController {
                 "Finalizando partida",
                 BarColor.RED
         );
+    }
+
+    public void checkPossibleWaveWin() {
+        if (WaveController.getInstance().getCurrentWaveType() == WaveController.WaveType.NORMAL) {
+            if (WaveController.getInstance().getWaveEntities().size() == 0) {
+                this.gamePausingRound();
+            }
+        }
     }
 
 }

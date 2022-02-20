@@ -1,8 +1,10 @@
 package dev.sasukector.mobattack.events;
 
+import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent;
 import dev.sasukector.mobattack.MobAttack;
 import dev.sasukector.mobattack.controllers.GameController;
 import dev.sasukector.mobattack.controllers.TeamsController;
+import dev.sasukector.mobattack.controllers.WaveController;
 import dev.sasukector.mobattack.helpers.ServerUtilities;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -11,6 +13,7 @@ import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
@@ -62,6 +65,29 @@ public class GameEvents implements Listener {
                 world.playSound(location, Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
                 world.spawnParticle(Particle.PORTAL, location, 40);
             }, 5L);
+        }
+    }
+
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent event) {
+        if (event.getEntity() instanceof Player) return;
+        LivingEntity livingEntity = event.getEntity();
+        if (WaveController.getInstance().getWaveEntities().contains(livingEntity)) {
+            if (event.getEntity().getKiller() != null) {
+                Player player = event.getEntity().getKiller();
+                player.playSound(player.getLocation(), "minecraft:block.note_block.flute", 1, 1.4f);
+            }
+            WaveController.getInstance().getWaveEntities().remove(livingEntity);
+            GameController.getInstance().checkPossibleWaveWin();
+        }
+    }
+
+    @EventHandler
+    public void onEntityRemove(EntityRemoveFromWorldEvent event) {
+        Entity entity = event.getEntity();
+        if (WaveController.getInstance().getWaveEntities().contains(entity)) {
+            WaveController.getInstance().getWaveEntities().remove(entity);
+            GameController.getInstance().checkPossibleWaveWin();
         }
     }
 
