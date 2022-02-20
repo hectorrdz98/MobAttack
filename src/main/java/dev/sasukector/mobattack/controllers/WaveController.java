@@ -494,10 +494,18 @@ public class WaveController {
             this.basicEntityConfiguration(zombie);
             zombie.setAdult();
             Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
-            zombie.getEquipment().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
-            zombie.getEquipment().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
-            zombie.getEquipment().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
-            zombie.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+            ItemStack helmet = new ItemStack(Material.DIAMOND_HELMET);
+            helmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+            zombie.getEquipment().setHelmet(helmet);
+            ItemStack chestplate = new ItemStack(Material.GOLDEN_CHESTPLATE);
+            chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+            zombie.getEquipment().setChestplate(chestplate);
+            ItemStack leggings = new ItemStack(Material.GOLDEN_LEGGINGS);
+            leggings.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+            zombie.getEquipment().setLeggings(leggings);
+            ItemStack boots = new ItemStack(Material.DIAMOND_BOOTS);
+            boots.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+            zombie.getEquipment().setBoots(boots);
             ItemStack hand = new ItemStack(Material.IRON_SWORD);
             if (random.nextFloat() >= 0.6) {
                 hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
@@ -526,12 +534,12 @@ public class WaveController {
             skeleton.getEquipment().setLeggings(null);
             skeleton.getEquipment().setBoots(null);
             ItemStack hand = new ItemStack(Material.BOW);
-            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 2);
+            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 4);
             if (random.nextFloat() >= 0.7) {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 6);
+                hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 4);
             } else {
                 if (random.nextFloat() >= 0.7) {
-                    hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 2);
+                    hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 3);
                 }
             }
             if (random.nextFloat() >= 0.7) {

@@ -116,6 +116,8 @@ public class GameEvents implements Listener {
                 WaveController.getInstance().getWaveEntities().add(newCreeper);
             } else {
                 creeper.getWorld().playSound(creeper.getLocation(), "minecraft:entity.phantom.hurt", 1f, 0.4f);
+                creeper.addScoreboardTag(WaveController.getTagInmuneToArrows());
+                creeper.addScoreboardTag(WaveController.getTagInmuneToExplosions());
                 creeper.getWorld().strikeLightning(creeper.getLocation());
             }
         }
