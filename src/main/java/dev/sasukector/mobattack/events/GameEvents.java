@@ -10,6 +10,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +19,7 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class GameEvents implements Listener {
@@ -107,8 +109,8 @@ public class GameEvents implements Listener {
                         creeper.getName(),
                         creeper.getWorld(),
                         creeper.getLocation(),
-                        40f,
-                        0.4f);
+                        (float) Objects.requireNonNull(creeper.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue(),
+                        (float) Objects.requireNonNull(creeper.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue());
                 newCreeper.setHealth(creeper.getHealth());
                 newCreeper.customName(creeper.customName());
                 newCreeper.setPowered(creeper.isPowered());

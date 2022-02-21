@@ -161,6 +161,10 @@ public class WaveController {
             this.maxEntities++;
             zombie.customName(Component.text("Zomwhi", TextColor.color(0x98F5E1)));
             this.basicEntityConfiguration(zombie);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(20);
+            zombie.setHealth(100f);
             zombie.setAdult();
             zombie.getEquipment().setHelmet(null);
             zombie.getEquipment().setChestplate(null);
@@ -175,9 +179,9 @@ public class WaveController {
                 hand = new ItemStack(Material.IRON_SWORD);
             }
             if (random.nextFloat() >= 0.9) {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
-            } else if (random.nextFloat() >= 0.7) {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 4);
+            } else {
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
             }
             if (random.nextFloat() >= 0.9) {
                 hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
@@ -195,17 +199,21 @@ public class WaveController {
             this.maxEntities++;
             skeleton.customName(Component.text("Veganito", TextColor.color(0xB9FBC0)));
             this.basicEntityConfiguration(skeleton);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100f);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(20);
+            skeleton.setHealth(100f);
             skeleton.getEquipment().setHelmet(null);
             skeleton.getEquipment().setChestplate(null);
             skeleton.getEquipment().setLeggings(null);
             skeleton.getEquipment().setBoots(null);
             ItemStack hand = new ItemStack(Material.BOW);
             if (random.nextFloat() >= 0.9) {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 6);
+                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 12);
             } else if (random.nextFloat() >= 0.7) {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 5);
+                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 10);
             } else {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 4);
+                hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 8);
             }
             if (random.nextFloat() >= 0.7) {
                 hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 1);
@@ -226,6 +234,10 @@ public class WaveController {
             this.maxEntities++;
             zombie.customName(Component.text("Zomwhi", TextColor.color(0x98F5E1)));
             this.basicEntityConfiguration(zombie);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(120f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(20);
+            zombie.setHealth(120f);
             zombie.setAdult();
             zombie.getEquipment().setHelmet(new ItemStack(Material.IRON_HELMET));
             zombie.getEquipment().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
@@ -240,11 +252,11 @@ public class WaveController {
                 hand = new ItemStack(Material.IRON_SWORD);
             }
             if (random.nextFloat() >= 0.6) {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
             } else if (random.nextFloat() >= 0.4) {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 4);
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 8);
             } else {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 6);
             }
             if (random.nextFloat() >= 0.6) {
                 hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
@@ -258,16 +270,16 @@ public class WaveController {
             zombie.customName(Component.text("Fino", TextColor.color(0xCFBAF0)));
             this.basicEntityConfiguration(zombie);
             zombie.setAdult();
-            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(40f);
-            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
-            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(5);
-            zombie.setHealth(40f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(150f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.4f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(15);
+            zombie.setHealth(150f);
             zombie.getEquipment().setHelmet(null);
             zombie.getEquipment().setChestplate(null);
             zombie.getEquipment().setLeggings(null);
             zombie.getEquipment().setBoots(null);
             ItemStack hand = new ItemStack(Material.NETHERITE_SWORD);
-            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
+            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 8);
             if (random.nextFloat() >= 0.9) {
                 hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
             }
@@ -279,12 +291,16 @@ public class WaveController {
             this.maxEntities++;
             skeleton.customName(Component.text("Veganito", TextColor.color(0xB9FBC0)));
             this.basicEntityConfiguration(skeleton);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100f);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.4f);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(15);
+            skeleton.setHealth(100f);
             skeleton.getEquipment().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
             skeleton.getEquipment().setChestplate(null);
             skeleton.getEquipment().setLeggings(null);
             skeleton.getEquipment().setBoots(null);
             ItemStack hand = new ItemStack(Material.BOW);
-            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 4);
+            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 10);
             if (random.nextFloat() >= 0.7) {
                 hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 2);
             }
@@ -305,10 +321,10 @@ public class WaveController {
             zombie.customName(Component.text("Fino", TextColor.color(0xCFBAF0)));
             this.basicEntityConfiguration(zombie);
             zombie.setAdult();
-            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(40f);
-            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
-            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(10);
-            zombie.setHealth(40f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(160f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.4f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(15);
+            zombie.setHealth(160f);
             zombie.getEquipment().setHelmet(new ItemStack(Material.IRON_HELMET));
             zombie.getEquipment().setChestplate(null);
             zombie.getEquipment().setLeggings(null);
@@ -317,7 +333,7 @@ public class WaveController {
             if (random.nextFloat() >= 0.7) {
                 hand.setType(Material.NETHERITE_SWORD);
             }
-            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
+            hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 8);
             if (random.nextFloat() >= 0.5) {
                 hand.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
             }
@@ -329,15 +345,19 @@ public class WaveController {
             this.maxEntities++;
             vindicator.customName(Component.text("Casi Humano", TextColor.color(0xCB997E)));
             this.basicEntityConfiguration(vindicator);
+            Objects.requireNonNull(vindicator.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(150f);
+            Objects.requireNonNull(vindicator.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.4f);
+            Objects.requireNonNull(vindicator.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(15);
+            vindicator.setHealth(150f);
             vindicator.getEquipment().setHelmet(null);
             vindicator.getEquipment().setChestplate(null);
             vindicator.getEquipment().setLeggings(null);
             vindicator.getEquipment().setBoots(null);
             ItemStack hand = new ItemStack(Material.NETHERITE_AXE);
             if (random.nextFloat() >= 0.8) {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 4);
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 8);
             } else {
-                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
+                hand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 6);
             }
             vindicator.getEquipment().setItemInMainHand(hand);
         }
@@ -353,7 +373,9 @@ public class WaveController {
         this.basicEntityConfiguration(boss);
         Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(2000f);
         Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
+        Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)).setBaseValue(15);
         Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(30);
+        Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_ATTACK_SPEED)).setBaseValue(10);
         boss.setHealth(2000f);
         boss.getEquipment().setHelmet(null);
         boss.getEquipment().setChestplate(null);
@@ -361,14 +383,14 @@ public class WaveController {
         boss.getEquipment().setBoots(null);
 
         ItemStack sword = new ItemStack(Material.NETHERITE_SWORD);
-        sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
+        sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 6);
         ItemMeta swordMeta = sword.getItemMeta();
         swordMeta.setUnbreakable(true);
         sword.setItemMeta(swordMeta);
         boss.getEquipment().setItemInMainHand(sword);
 
         ItemStack bow = new ItemStack(Material.BOW);
-        bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 10);
+        bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 15);
         ItemMeta bowMeta = bow.getItemMeta();
         bowMeta.setUnbreakable(true);
         bow.setItemMeta(bowMeta);
@@ -412,10 +434,9 @@ public class WaveController {
                                             world.strikeLightning(player.getLocation());
                                             for (int i = 0; i < random.nextInt(2) + 1; ++i) {
                                                 WitherSkeleton witherSkeleton =
-                                                        summonFirstBossEnemy(world, player.getLocation(), 40f, 0.4f);
+                                                        summonFirstBossEnemy(world, player.getLocation(), 150f, 0.4f);
                                                 ItemStack skeletonHand = new ItemStack(Material.STICK);
-                                                skeletonHand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
-                                                skeletonHand.addUnsafeEnchantment(Enchantment.KNOCKBACK, 10);
+                                                skeletonHand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 20);
                                                 witherSkeleton.getEquipment().setItemInMainHand(skeletonHand);
                                             }
                                         });
@@ -475,9 +496,12 @@ public class WaveController {
         this.currentWaveType = WaveType.NORMAL;
         this.maxEntities = 0;
         for (int i = 0; i < 200; ++i) {
-            Creeper creeper = this.summonCreeper("Sustitos", world, this.getRandomLocation(world), 80f, 0.4f);
+            Creeper creeper = this.summonCreeper("Sustitos", world, this.getRandomLocation(world), 200f, 0.4f);
             creeper.addScoreboardTag(tagInmuneToArrows);
             creeper.addScoreboardTag(tagInmuneToExplosions);
+            if (random.nextBoolean()) {
+                creeper.setIgnited(true);
+            }
             this.waveEntities.add(creeper);
             this.maxEntities++;
         }
@@ -489,7 +513,7 @@ public class WaveController {
         this.basicEntityConfiguration(creeper);
         Objects.requireNonNull(creeper.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(maxHealth);
         Objects.requireNonNull(creeper.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(maxSpeed);
-        Objects.requireNonNull(creeper.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(5);
+        Objects.requireNonNull(creeper.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(10);
         creeper.setHealth(maxHealth);
         return creeper;
     }
@@ -504,7 +528,10 @@ public class WaveController {
             zombie.customName(Component.text("Zomwhi", TextColor.color(0x98F5E1)));
             this.basicEntityConfiguration(zombie);
             zombie.setAdult();
-            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.35f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(150f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.4f);
+            Objects.requireNonNull(zombie.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(15);
+            zombie.setHealth(150f);
             ItemStack helmet = new ItemStack(Material.DIAMOND_HELMET);
             helmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
             zombie.getEquipment().setHelmet(helmet);
@@ -536,30 +563,25 @@ public class WaveController {
             this.maxEntities++;
             skeleton.customName(Component.text("Gorrito", TextColor.color(0x90DBF4)));
             this.basicEntityConfiguration(skeleton);
-            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(60f);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(200f);
             Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.4f);
-            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(20);
-            skeleton.setHealth(60f);
+            Objects.requireNonNull(skeleton.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(15);
+            skeleton.setHealth(200f);
+            skeleton.addScoreboardTag(tagInmuneToArrows);
+            skeleton.addScoreboardTag(tagInmuneToExplosions);
             skeleton.getEquipment().setHelmet(null);
             skeleton.getEquipment().setChestplate(null);
             skeleton.getEquipment().setLeggings(null);
             skeleton.getEquipment().setBoots(null);
             ItemStack hand = new ItemStack(Material.BOW);
-            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 8);
+            hand.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 20);
             if (random.nextFloat() >= 0.7) {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 10);
-            } else {
-                if (random.nextFloat() >= 0.7) {
-                    hand.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 8);
-                }
-            }
-            if (random.nextFloat() >= 0.7) {
-                hand.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 1);
+                hand.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 10);
             }
             skeleton.getEquipment().setItemInMainHand(hand);
         }
         for (int i = 0; i < 50; ++i) {
-            Creeper creeper = this.summonCreeper("Sustitos", world, this.getRandomLocation(world), 80f, 0.4f);
+            Creeper creeper = this.summonCreeper("Sustitos", world, this.getRandomLocation(world), 200f, 0.4f);
             creeper.addScoreboardTag(tagInmuneToExplosions);
             creeper.addScoreboardTag(tagInmuneToArrows);
             this.waveEntities.add(creeper);
@@ -587,6 +609,7 @@ public class WaveController {
             spider.customName(Component.text("Arañita", TextColor.color(0xDAF59B)));
             this.basicEntityConfiguration(spider);
             Objects.requireNonNull(spider.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(200f);
+            Objects.requireNonNull(spider.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(15);
             spider.setHealth(200f);
             spider.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 999999, 1));
             spider.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 6));
@@ -620,6 +643,7 @@ public class WaveController {
             evoker.customName(Component.text("Capuchita", TextColor.color(0x808CF5)));
             this.basicEntityConfiguration(evoker);
             Objects.requireNonNull(evoker.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(300f);
+            Objects.requireNonNull(evoker.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(15);
             evoker.setHealth(300f);
             evoker.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 999999, 1));
             evoker.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999, 8));
@@ -632,6 +656,7 @@ public class WaveController {
             ravager.customName(Component.text("Guerrero Perdido", TextColor.color(0x808CF5)));
             this.basicEntityConfiguration(ravager);
             Objects.requireNonNull(ravager.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(500f);
+            Objects.requireNonNull(ravager.getAttribute(Attribute.GENERIC_ARMOR)).setBaseValue(15);
             ravager.setHealth(500f);
             ravager.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 3));
             ravager.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 3));
