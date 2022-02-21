@@ -7,15 +7,18 @@ import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameController {
 
@@ -27,6 +30,7 @@ public class GameController {
     private final Random random;
     private @Getter @Setter int currentRound;
     private @Getter boolean pvpEnabled;
+    private @Getter int taskID = -1;
 
     public static GameController getInstance() {
         if (instance == null) {
@@ -51,6 +55,46 @@ public class GameController {
             this.lootingArea = new Location(overworld, 108, 5, 8);
             this.arenaArea = new Location(overworld, 45, 5, 8);
         }
+        this.gameScheduler();
+    }
+
+    public static List<Block> getNearbyBlocks(Location location, int radius) {
+        List<Block> blocks = new ArrayList<>();
+        for(int x = location.getBlockX() - radius; x <= location.getBlockX() + radius; x++) {
+            for(int y = location.getBlockY() - radius; y <= location.getBlockY() + radius; y++) {
+                for(int z = location.getBlockZ() - radius; z <= location.getBlockZ() + radius; z++) {
+                    blocks.add(location.getWorld().getBlockAt(x, y, z));
+                }
+            }
+        }
+        return blocks;
+    }
+
+    public void gameScheduler() {
+        if (this.taskID != -1) {
+            Bukkit.getScheduler().cancelTask(this.taskID);
+            this.taskID = -1;
+        }
+        this.taskID = new BukkitRunnable() {
+            @Override
+            public void run() {
+                AtomicBoolean message = new AtomicBoolean(false);
+                TeamsController.getInstance().getPlayingPlayers().forEach(player -> {
+                    List<Block> blocks = getNearbyBlocks(player.getLocation(), 5);
+                    for (Block block : blocks) {
+                        if (block.getType() == Material.WATER) {
+                            block.setType(Material.AIR);
+                            message.set(true);
+                        }
+                    }
+                });
+                if (message.get()) {
+                    ServerUtilities.sendBroadcastActionBar(ServerUtilities.getMiniMessage().parse(
+                            "<color:#FFAFCC>Se secó el agua del suelo</color>"
+                    ));
+                }
+            }
+        }.runTaskTimer(MobAttack.getInstance(), 0L, 20L * 5).getTaskId();
     }
 
     public void givePlayerKit(Player player) {
